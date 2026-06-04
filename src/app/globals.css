@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-cocoa: #3e281b;
+  --color-terracotta: #b8865f;
+  --color-ivory: #e8dfb7;
+  --color-gold: #d8c83a;
+  
+  --font-cormorant: var(--font-cormorant);
+  --font-inter: var(--font-inter);
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-cocoa);
+}
