@@ -172,7 +172,7 @@ export default function AdminProducts() {
             <div className="bg-white p-4 rounded-xl shadow-inner border border-cocoa/5 flex justify-center mb-6">
               <div className="relative w-48 h-48">
                 <Image 
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(`http://localhost:3000/products/${qrProduct.slug}`)}`}
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(`https://ldnaturals.com/verify/${qrProduct.slug}`)}`}
                   alt={`QR Code for ${qrProduct.name}`}
                   fill
                   className="object-contain"
@@ -186,7 +186,7 @@ export default function AdminProducts() {
                 Scan this code to instantly open the product page on your mobile device.
               </p>
               <a 
-                href={`https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`http://localhost:3000/products/${qrProduct.slug}`)}`}
+                href={`https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`https://ldnaturals.com/verify/${qrProduct.slug}`)}`}
                 download={`${qrProduct.slug}-qr.png`}
                 target="_blank"
                 rel="noreferrer"
