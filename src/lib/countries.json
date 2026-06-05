@@ -1,0 +1,1986 @@
+[
+  {
+    "isoName": "AF",
+    "name": "Afghanistan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+93"
+    ]
+  },
+  {
+    "isoName": "AX",
+    "name": "Åland Islands",
+    "continent": "Europe",
+    "callingCodes": [
+      "+35818"
+    ]
+  },
+  {
+    "isoName": "AL",
+    "name": "Albania",
+    "continent": "Europe",
+    "callingCodes": [
+      "+355"
+    ]
+  },
+  {
+    "isoName": "DZ",
+    "name": "Algeria",
+    "continent": "Africa",
+    "callingCodes": [
+      "+213"
+    ]
+  },
+  {
+    "isoName": "AS",
+    "name": "American Samoa",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+1684"
+    ]
+  },
+  {
+    "isoName": "AD",
+    "name": "Andorra",
+    "continent": "Europe",
+    "callingCodes": [
+      "+376"
+    ]
+  },
+  {
+    "isoName": "AO",
+    "name": "Angola",
+    "continent": "Africa",
+    "callingCodes": [
+      "+244"
+    ]
+  },
+  {
+    "isoName": "AI",
+    "name": "Anguilla",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1264"
+    ]
+  },
+  {
+    "isoName": "AG",
+    "name": "Antigua and Barbuda",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1268"
+    ]
+  },
+  {
+    "isoName": "AR",
+    "name": "Argentina",
+    "continent": "Americas",
+    "callingCodes": [
+      "+54"
+    ]
+  },
+  {
+    "isoName": "AM",
+    "name": "Armenia",
+    "continent": "Asia",
+    "callingCodes": [
+      "+374"
+    ]
+  },
+  {
+    "isoName": "AW",
+    "name": "Aruba",
+    "continent": "Americas",
+    "callingCodes": [
+      "+297"
+    ]
+  },
+  {
+    "isoName": "AU",
+    "name": "Australia",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+61"
+    ]
+  },
+  {
+    "isoName": "AT",
+    "name": "Austria",
+    "continent": "Europe",
+    "callingCodes": [
+      "+43"
+    ]
+  },
+  {
+    "isoName": "AZ",
+    "name": "Azerbaijan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+994"
+    ]
+  },
+  {
+    "isoName": "BS",
+    "name": "Bahamas",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1242"
+    ]
+  },
+  {
+    "isoName": "BH",
+    "name": "Bahrain",
+    "continent": "Asia",
+    "callingCodes": [
+      "+973"
+    ]
+  },
+  {
+    "isoName": "BD",
+    "name": "Bangladesh",
+    "continent": "Asia",
+    "callingCodes": [
+      "+880"
+    ]
+  },
+  {
+    "isoName": "BB",
+    "name": "Barbados",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1246"
+    ]
+  },
+  {
+    "isoName": "BY",
+    "name": "Belarus",
+    "continent": "Europe",
+    "callingCodes": [
+      "+375"
+    ]
+  },
+  {
+    "isoName": "BE",
+    "name": "Belgium",
+    "continent": "Europe",
+    "callingCodes": [
+      "+32"
+    ]
+  },
+  {
+    "isoName": "BZ",
+    "name": "Belize",
+    "continent": "Americas",
+    "callingCodes": [
+      "+501"
+    ]
+  },
+  {
+    "isoName": "BJ",
+    "name": "Benin",
+    "continent": "Africa",
+    "callingCodes": [
+      "+229"
+    ]
+  },
+  {
+    "isoName": "BM",
+    "name": "Bermuda",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1441"
+    ]
+  },
+  {
+    "isoName": "BT",
+    "name": "Bhutan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+975"
+    ]
+  },
+  {
+    "isoName": "BO",
+    "name": "Bolivia",
+    "continent": "Americas",
+    "callingCodes": [
+      "+591"
+    ]
+  },
+  {
+    "isoName": "BA",
+    "name": "Bosnia and Herzegovina",
+    "continent": "Europe",
+    "callingCodes": [
+      "+387"
+    ]
+  },
+  {
+    "isoName": "BW",
+    "name": "Botswana",
+    "continent": "Africa",
+    "callingCodes": [
+      "+267"
+    ]
+  },
+  {
+    "isoName": "BV",
+    "name": "Bouvet Island",
+    "continent": "Antarctic",
+    "callingCodes": [
+      "+47"
+    ]
+  },
+  {
+    "isoName": "BR",
+    "name": "Brazil",
+    "continent": "Americas",
+    "callingCodes": [
+      "+55"
+    ]
+  },
+  {
+    "isoName": "IO",
+    "name": "British Indian Ocean Territory",
+    "continent": "Africa",
+    "callingCodes": [
+      "+246"
+    ]
+  },
+  {
+    "isoName": "VG",
+    "name": "British Virgin Islands",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1284"
+    ]
+  },
+  {
+    "isoName": "BN",
+    "name": "Brunei",
+    "continent": "Asia",
+    "callingCodes": [
+      "+673"
+    ]
+  },
+  {
+    "isoName": "BG",
+    "name": "Bulgaria",
+    "continent": "Europe",
+    "callingCodes": [
+      "+359"
+    ]
+  },
+  {
+    "isoName": "BF",
+    "name": "Burkina Faso",
+    "continent": "Africa",
+    "callingCodes": [
+      "+226"
+    ]
+  },
+  {
+    "isoName": "BI",
+    "name": "Burundi",
+    "continent": "Africa",
+    "callingCodes": [
+      "+257"
+    ]
+  },
+  {
+    "isoName": "KH",
+    "name": "Cambodia",
+    "continent": "Asia",
+    "callingCodes": [
+      "+855"
+    ]
+  },
+  {
+    "isoName": "CM",
+    "name": "Cameroon",
+    "continent": "Africa",
+    "callingCodes": [
+      "+237"
+    ]
+  },
+  {
+    "isoName": "CA",
+    "name": "Canada",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1"
+    ]
+  },
+  {
+    "isoName": "CV",
+    "name": "Cape Verde",
+    "continent": "Africa",
+    "callingCodes": [
+      "+238"
+    ]
+  },
+  {
+    "isoName": "BQ",
+    "name": "Caribbean Netherlands",
+    "continent": "Americas",
+    "callingCodes": [
+      "+599"
+    ]
+  },
+  {
+    "isoName": "KY",
+    "name": "Cayman Islands",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1345"
+    ]
+  },
+  {
+    "isoName": "CF",
+    "name": "Central African Republic",
+    "continent": "Africa",
+    "callingCodes": [
+      "+236"
+    ]
+  },
+  {
+    "isoName": "TD",
+    "name": "Chad",
+    "continent": "Africa",
+    "callingCodes": [
+      "+235"
+    ]
+  },
+  {
+    "isoName": "CL",
+    "name": "Chile",
+    "continent": "Americas",
+    "callingCodes": [
+      "+56"
+    ]
+  },
+  {
+    "isoName": "CN",
+    "name": "China",
+    "continent": "Asia",
+    "callingCodes": [
+      "+86"
+    ]
+  },
+  {
+    "isoName": "CX",
+    "name": "Christmas Island",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+61"
+    ]
+  },
+  {
+    "isoName": "CC",
+    "name": "Cocos (Keeling) Islands",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+61"
+    ]
+  },
+  {
+    "isoName": "CO",
+    "name": "Colombia",
+    "continent": "Americas",
+    "callingCodes": [
+      "+57"
+    ]
+  },
+  {
+    "isoName": "KM",
+    "name": "Comoros",
+    "continent": "Africa",
+    "callingCodes": [
+      "+269"
+    ]
+  },
+  {
+    "isoName": "CK",
+    "name": "Cook Islands",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+682"
+    ]
+  },
+  {
+    "isoName": "CR",
+    "name": "Costa Rica",
+    "continent": "Americas",
+    "callingCodes": [
+      "+506"
+    ]
+  },
+  {
+    "isoName": "HR",
+    "name": "Croatia",
+    "continent": "Europe",
+    "callingCodes": [
+      "+385"
+    ]
+  },
+  {
+    "isoName": "CU",
+    "name": "Cuba",
+    "continent": "Americas",
+    "callingCodes": [
+      "+53"
+    ]
+  },
+  {
+    "isoName": "CW",
+    "name": "Curaçao",
+    "continent": "Americas",
+    "callingCodes": [
+      "+599"
+    ]
+  },
+  {
+    "isoName": "CY",
+    "name": "Cyprus",
+    "continent": "Europe",
+    "callingCodes": [
+      "+357"
+    ]
+  },
+  {
+    "isoName": "CZ",
+    "name": "Czechia",
+    "continent": "Europe",
+    "callingCodes": [
+      "+420"
+    ]
+  },
+  {
+    "isoName": "DK",
+    "name": "Denmark",
+    "continent": "Europe",
+    "callingCodes": [
+      "+45"
+    ]
+  },
+  {
+    "isoName": "DJ",
+    "name": "Djibouti",
+    "continent": "Africa",
+    "callingCodes": [
+      "+253"
+    ]
+  },
+  {
+    "isoName": "DM",
+    "name": "Dominica",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1767"
+    ]
+  },
+  {
+    "isoName": "DO",
+    "name": "Dominican Republic",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1809"
+    ]
+  },
+  {
+    "isoName": "CD",
+    "name": "DR Congo",
+    "continent": "Africa",
+    "callingCodes": [
+      "+243"
+    ]
+  },
+  {
+    "isoName": "EC",
+    "name": "Ecuador",
+    "continent": "Americas",
+    "callingCodes": [
+      "+593"
+    ]
+  },
+  {
+    "isoName": "EG",
+    "name": "Egypt",
+    "continent": "Africa",
+    "callingCodes": [
+      "+20"
+    ]
+  },
+  {
+    "isoName": "SV",
+    "name": "El Salvador",
+    "continent": "Americas",
+    "callingCodes": [
+      "+503"
+    ]
+  },
+  {
+    "isoName": "GQ",
+    "name": "Equatorial Guinea",
+    "continent": "Africa",
+    "callingCodes": [
+      "+240"
+    ]
+  },
+  {
+    "isoName": "ER",
+    "name": "Eritrea",
+    "continent": "Africa",
+    "callingCodes": [
+      "+291"
+    ]
+  },
+  {
+    "isoName": "EE",
+    "name": "Estonia",
+    "continent": "Europe",
+    "callingCodes": [
+      "+372"
+    ]
+  },
+  {
+    "isoName": "SZ",
+    "name": "Eswatini",
+    "continent": "Africa",
+    "callingCodes": [
+      "+268"
+    ]
+  },
+  {
+    "isoName": "ET",
+    "name": "Ethiopia",
+    "continent": "Africa",
+    "callingCodes": [
+      "+251"
+    ]
+  },
+  {
+    "isoName": "FK",
+    "name": "Falkland Islands",
+    "continent": "Americas",
+    "callingCodes": [
+      "+500"
+    ]
+  },
+  {
+    "isoName": "FO",
+    "name": "Faroe Islands",
+    "continent": "Europe",
+    "callingCodes": [
+      "+298"
+    ]
+  },
+  {
+    "isoName": "FJ",
+    "name": "Fiji",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+679"
+    ]
+  },
+  {
+    "isoName": "FI",
+    "name": "Finland",
+    "continent": "Europe",
+    "callingCodes": [
+      "+358"
+    ]
+  },
+  {
+    "isoName": "FR",
+    "name": "France",
+    "continent": "Europe",
+    "callingCodes": [
+      "+33"
+    ]
+  },
+  {
+    "isoName": "GF",
+    "name": "French Guiana",
+    "continent": "Americas",
+    "callingCodes": [
+      "+594"
+    ]
+  },
+  {
+    "isoName": "PF",
+    "name": "French Polynesia",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+689"
+    ]
+  },
+  {
+    "isoName": "TF",
+    "name": "French Southern and Antarctic Lands",
+    "continent": "Antarctic",
+    "callingCodes": [
+      "+262"
+    ]
+  },
+  {
+    "isoName": "GA",
+    "name": "Gabon",
+    "continent": "Africa",
+    "callingCodes": [
+      "+241"
+    ]
+  },
+  {
+    "isoName": "GM",
+    "name": "Gambia",
+    "continent": "Africa",
+    "callingCodes": [
+      "+220"
+    ]
+  },
+  {
+    "isoName": "GE",
+    "name": "Georgia",
+    "continent": "Asia",
+    "callingCodes": [
+      "+995"
+    ]
+  },
+  {
+    "isoName": "DE",
+    "name": "Germany",
+    "continent": "Europe",
+    "callingCodes": [
+      "+49"
+    ]
+  },
+  {
+    "isoName": "GH",
+    "name": "Ghana",
+    "continent": "Africa",
+    "callingCodes": [
+      "+233"
+    ]
+  },
+  {
+    "isoName": "GI",
+    "name": "Gibraltar",
+    "continent": "Europe",
+    "callingCodes": [
+      "+350"
+    ]
+  },
+  {
+    "isoName": "GR",
+    "name": "Greece",
+    "continent": "Europe",
+    "callingCodes": [
+      "+30"
+    ]
+  },
+  {
+    "isoName": "GL",
+    "name": "Greenland",
+    "continent": "Americas",
+    "callingCodes": [
+      "+299"
+    ]
+  },
+  {
+    "isoName": "GD",
+    "name": "Grenada",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1473"
+    ]
+  },
+  {
+    "isoName": "GP",
+    "name": "Guadeloupe",
+    "continent": "Americas",
+    "callingCodes": [
+      "+590"
+    ]
+  },
+  {
+    "isoName": "GU",
+    "name": "Guam",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+1671"
+    ]
+  },
+  {
+    "isoName": "GT",
+    "name": "Guatemala",
+    "continent": "Americas",
+    "callingCodes": [
+      "+502"
+    ]
+  },
+  {
+    "isoName": "GG",
+    "name": "Guernsey",
+    "continent": "Europe",
+    "callingCodes": [
+      "+44"
+    ]
+  },
+  {
+    "isoName": "GN",
+    "name": "Guinea",
+    "continent": "Africa",
+    "callingCodes": [
+      "+224"
+    ]
+  },
+  {
+    "isoName": "GW",
+    "name": "Guinea-Bissau",
+    "continent": "Africa",
+    "callingCodes": [
+      "+245"
+    ]
+  },
+  {
+    "isoName": "GY",
+    "name": "Guyana",
+    "continent": "Americas",
+    "callingCodes": [
+      "+592"
+    ]
+  },
+  {
+    "isoName": "HT",
+    "name": "Haiti",
+    "continent": "Americas",
+    "callingCodes": [
+      "+509"
+    ]
+  },
+  {
+    "isoName": "HN",
+    "name": "Honduras",
+    "continent": "Americas",
+    "callingCodes": [
+      "+504"
+    ]
+  },
+  {
+    "isoName": "HK",
+    "name": "Hong Kong",
+    "continent": "Asia",
+    "callingCodes": [
+      "+852"
+    ]
+  },
+  {
+    "isoName": "HU",
+    "name": "Hungary",
+    "continent": "Europe",
+    "callingCodes": [
+      "+36"
+    ]
+  },
+  {
+    "isoName": "IS",
+    "name": "Iceland",
+    "continent": "Europe",
+    "callingCodes": [
+      "+354"
+    ]
+  },
+  {
+    "isoName": "IN",
+    "name": "India",
+    "continent": "Asia",
+    "callingCodes": [
+      "+91"
+    ]
+  },
+  {
+    "isoName": "ID",
+    "name": "Indonesia",
+    "continent": "Asia",
+    "callingCodes": [
+      "+62"
+    ]
+  },
+  {
+    "isoName": "IR",
+    "name": "Iran",
+    "continent": "Asia",
+    "callingCodes": [
+      "+98"
+    ]
+  },
+  {
+    "isoName": "IQ",
+    "name": "Iraq",
+    "continent": "Asia",
+    "callingCodes": [
+      "+964"
+    ]
+  },
+  {
+    "isoName": "IE",
+    "name": "Ireland",
+    "continent": "Europe",
+    "callingCodes": [
+      "+353"
+    ]
+  },
+  {
+    "isoName": "IM",
+    "name": "Isle of Man",
+    "continent": "Europe",
+    "callingCodes": [
+      "+44"
+    ]
+  },
+  {
+    "isoName": "IL",
+    "name": "Israel",
+    "continent": "Asia",
+    "callingCodes": [
+      "+972"
+    ]
+  },
+  {
+    "isoName": "IT",
+    "name": "Italy",
+    "continent": "Europe",
+    "callingCodes": [
+      "+39"
+    ]
+  },
+  {
+    "isoName": "CI",
+    "name": "Ivory Coast",
+    "continent": "Africa",
+    "callingCodes": [
+      "+225"
+    ]
+  },
+  {
+    "isoName": "JM",
+    "name": "Jamaica",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1876"
+    ]
+  },
+  {
+    "isoName": "JP",
+    "name": "Japan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+81"
+    ]
+  },
+  {
+    "isoName": "JE",
+    "name": "Jersey",
+    "continent": "Europe",
+    "callingCodes": [
+      "+44"
+    ]
+  },
+  {
+    "isoName": "JO",
+    "name": "Jordan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+962"
+    ]
+  },
+  {
+    "isoName": "KZ",
+    "name": "Kazakhstan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+76"
+    ]
+  },
+  {
+    "isoName": "KE",
+    "name": "Kenya",
+    "continent": "Africa",
+    "callingCodes": [
+      "+254"
+    ]
+  },
+  {
+    "isoName": "KI",
+    "name": "Kiribati",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+686"
+    ]
+  },
+  {
+    "isoName": "XK",
+    "name": "Kosovo",
+    "continent": "Europe",
+    "callingCodes": [
+      "+383"
+    ]
+  },
+  {
+    "isoName": "KW",
+    "name": "Kuwait",
+    "continent": "Asia",
+    "callingCodes": [
+      "+965"
+    ]
+  },
+  {
+    "isoName": "KG",
+    "name": "Kyrgyzstan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+996"
+    ]
+  },
+  {
+    "isoName": "LA",
+    "name": "Laos",
+    "continent": "Asia",
+    "callingCodes": [
+      "+856"
+    ]
+  },
+  {
+    "isoName": "LV",
+    "name": "Latvia",
+    "continent": "Europe",
+    "callingCodes": [
+      "+371"
+    ]
+  },
+  {
+    "isoName": "LB",
+    "name": "Lebanon",
+    "continent": "Asia",
+    "callingCodes": [
+      "+961"
+    ]
+  },
+  {
+    "isoName": "LS",
+    "name": "Lesotho",
+    "continent": "Africa",
+    "callingCodes": [
+      "+266"
+    ]
+  },
+  {
+    "isoName": "LR",
+    "name": "Liberia",
+    "continent": "Africa",
+    "callingCodes": [
+      "+231"
+    ]
+  },
+  {
+    "isoName": "LY",
+    "name": "Libya",
+    "continent": "Africa",
+    "callingCodes": [
+      "+218"
+    ]
+  },
+  {
+    "isoName": "LI",
+    "name": "Liechtenstein",
+    "continent": "Europe",
+    "callingCodes": [
+      "+423"
+    ]
+  },
+  {
+    "isoName": "LT",
+    "name": "Lithuania",
+    "continent": "Europe",
+    "callingCodes": [
+      "+370"
+    ]
+  },
+  {
+    "isoName": "LU",
+    "name": "Luxembourg",
+    "continent": "Europe",
+    "callingCodes": [
+      "+352"
+    ]
+  },
+  {
+    "isoName": "MO",
+    "name": "Macau",
+    "continent": "Asia",
+    "callingCodes": [
+      "+853"
+    ]
+  },
+  {
+    "isoName": "MG",
+    "name": "Madagascar",
+    "continent": "Africa",
+    "callingCodes": [
+      "+261"
+    ]
+  },
+  {
+    "isoName": "MW",
+    "name": "Malawi",
+    "continent": "Africa",
+    "callingCodes": [
+      "+265"
+    ]
+  },
+  {
+    "isoName": "MY",
+    "name": "Malaysia",
+    "continent": "Asia",
+    "callingCodes": [
+      "+60"
+    ]
+  },
+  {
+    "isoName": "MV",
+    "name": "Maldives",
+    "continent": "Asia",
+    "callingCodes": [
+      "+960"
+    ]
+  },
+  {
+    "isoName": "ML",
+    "name": "Mali",
+    "continent": "Africa",
+    "callingCodes": [
+      "+223"
+    ]
+  },
+  {
+    "isoName": "MT",
+    "name": "Malta",
+    "continent": "Europe",
+    "callingCodes": [
+      "+356"
+    ]
+  },
+  {
+    "isoName": "MH",
+    "name": "Marshall Islands",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+692"
+    ]
+  },
+  {
+    "isoName": "MQ",
+    "name": "Martinique",
+    "continent": "Americas",
+    "callingCodes": [
+      "+596"
+    ]
+  },
+  {
+    "isoName": "MR",
+    "name": "Mauritania",
+    "continent": "Africa",
+    "callingCodes": [
+      "+222"
+    ]
+  },
+  {
+    "isoName": "MU",
+    "name": "Mauritius",
+    "continent": "Africa",
+    "callingCodes": [
+      "+230"
+    ]
+  },
+  {
+    "isoName": "YT",
+    "name": "Mayotte",
+    "continent": "Africa",
+    "callingCodes": [
+      "+262"
+    ]
+  },
+  {
+    "isoName": "MX",
+    "name": "Mexico",
+    "continent": "Americas",
+    "callingCodes": [
+      "+52"
+    ]
+  },
+  {
+    "isoName": "FM",
+    "name": "Micronesia",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+691"
+    ]
+  },
+  {
+    "isoName": "MD",
+    "name": "Moldova",
+    "continent": "Europe",
+    "callingCodes": [
+      "+373"
+    ]
+  },
+  {
+    "isoName": "MC",
+    "name": "Monaco",
+    "continent": "Europe",
+    "callingCodes": [
+      "+377"
+    ]
+  },
+  {
+    "isoName": "MN",
+    "name": "Mongolia",
+    "continent": "Asia",
+    "callingCodes": [
+      "+976"
+    ]
+  },
+  {
+    "isoName": "ME",
+    "name": "Montenegro",
+    "continent": "Europe",
+    "callingCodes": [
+      "+382"
+    ]
+  },
+  {
+    "isoName": "MS",
+    "name": "Montserrat",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1664"
+    ]
+  },
+  {
+    "isoName": "MA",
+    "name": "Morocco",
+    "continent": "Africa",
+    "callingCodes": [
+      "+212"
+    ]
+  },
+  {
+    "isoName": "MZ",
+    "name": "Mozambique",
+    "continent": "Africa",
+    "callingCodes": [
+      "+258"
+    ]
+  },
+  {
+    "isoName": "MM",
+    "name": "Myanmar",
+    "continent": "Asia",
+    "callingCodes": [
+      "+95"
+    ]
+  },
+  {
+    "isoName": "NA",
+    "name": "Namibia",
+    "continent": "Africa",
+    "callingCodes": [
+      "+264"
+    ]
+  },
+  {
+    "isoName": "NR",
+    "name": "Nauru",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+674"
+    ]
+  },
+  {
+    "isoName": "NP",
+    "name": "Nepal",
+    "continent": "Asia",
+    "callingCodes": [
+      "+977"
+    ]
+  },
+  {
+    "isoName": "NL",
+    "name": "Netherlands",
+    "continent": "Europe",
+    "callingCodes": [
+      "+31"
+    ]
+  },
+  {
+    "isoName": "NC",
+    "name": "New Caledonia",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+687"
+    ]
+  },
+  {
+    "isoName": "NZ",
+    "name": "New Zealand",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+64"
+    ]
+  },
+  {
+    "isoName": "NI",
+    "name": "Nicaragua",
+    "continent": "Americas",
+    "callingCodes": [
+      "+505"
+    ]
+  },
+  {
+    "isoName": "NE",
+    "name": "Niger",
+    "continent": "Africa",
+    "callingCodes": [
+      "+227"
+    ]
+  },
+  {
+    "isoName": "NG",
+    "name": "Nigeria",
+    "continent": "Africa",
+    "callingCodes": [
+      "+234"
+    ]
+  },
+  {
+    "isoName": "NU",
+    "name": "Niue",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+683"
+    ]
+  },
+  {
+    "isoName": "NF",
+    "name": "Norfolk Island",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+672"
+    ]
+  },
+  {
+    "isoName": "KP",
+    "name": "North Korea",
+    "continent": "Asia",
+    "callingCodes": [
+      "+850"
+    ]
+  },
+  {
+    "isoName": "MK",
+    "name": "North Macedonia",
+    "continent": "Europe",
+    "callingCodes": [
+      "+389"
+    ]
+  },
+  {
+    "isoName": "MP",
+    "name": "Northern Mariana Islands",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+1670"
+    ]
+  },
+  {
+    "isoName": "NO",
+    "name": "Norway",
+    "continent": "Europe",
+    "callingCodes": [
+      "+47"
+    ]
+  },
+  {
+    "isoName": "OM",
+    "name": "Oman",
+    "continent": "Asia",
+    "callingCodes": [
+      "+968"
+    ]
+  },
+  {
+    "isoName": "PK",
+    "name": "Pakistan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+92"
+    ]
+  },
+  {
+    "isoName": "PW",
+    "name": "Palau",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+680"
+    ]
+  },
+  {
+    "isoName": "PS",
+    "name": "Palestine",
+    "continent": "Asia",
+    "callingCodes": [
+      "+970"
+    ]
+  },
+  {
+    "isoName": "PA",
+    "name": "Panama",
+    "continent": "Americas",
+    "callingCodes": [
+      "+507"
+    ]
+  },
+  {
+    "isoName": "PG",
+    "name": "Papua New Guinea",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+675"
+    ]
+  },
+  {
+    "isoName": "PY",
+    "name": "Paraguay",
+    "continent": "Americas",
+    "callingCodes": [
+      "+595"
+    ]
+  },
+  {
+    "isoName": "PE",
+    "name": "Peru",
+    "continent": "Americas",
+    "callingCodes": [
+      "+51"
+    ]
+  },
+  {
+    "isoName": "PH",
+    "name": "Philippines",
+    "continent": "Asia",
+    "callingCodes": [
+      "+63"
+    ]
+  },
+  {
+    "isoName": "PN",
+    "name": "Pitcairn Islands",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+64"
+    ]
+  },
+  {
+    "isoName": "PL",
+    "name": "Poland",
+    "continent": "Europe",
+    "callingCodes": [
+      "+48"
+    ]
+  },
+  {
+    "isoName": "PT",
+    "name": "Portugal",
+    "continent": "Europe",
+    "callingCodes": [
+      "+351"
+    ]
+  },
+  {
+    "isoName": "PR",
+    "name": "Puerto Rico",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1787"
+    ]
+  },
+  {
+    "isoName": "QA",
+    "name": "Qatar",
+    "continent": "Asia",
+    "callingCodes": [
+      "+974"
+    ]
+  },
+  {
+    "isoName": "CG",
+    "name": "Republic of the Congo",
+    "continent": "Africa",
+    "callingCodes": [
+      "+242"
+    ]
+  },
+  {
+    "isoName": "RE",
+    "name": "Réunion",
+    "continent": "Africa",
+    "callingCodes": [
+      "+262"
+    ]
+  },
+  {
+    "isoName": "RO",
+    "name": "Romania",
+    "continent": "Europe",
+    "callingCodes": [
+      "+40"
+    ]
+  },
+  {
+    "isoName": "RU",
+    "name": "Russia",
+    "continent": "Europe",
+    "callingCodes": [
+      "+73"
+    ]
+  },
+  {
+    "isoName": "RW",
+    "name": "Rwanda",
+    "continent": "Africa",
+    "callingCodes": [
+      "+250"
+    ]
+  },
+  {
+    "isoName": "BL",
+    "name": "Saint Barthélemy",
+    "continent": "Americas",
+    "callingCodes": [
+      "+590"
+    ]
+  },
+  {
+    "isoName": "SH",
+    "name": "Saint Helena, Ascension and Tristan da Cunha",
+    "continent": "Africa",
+    "callingCodes": [
+      "+290"
+    ]
+  },
+  {
+    "isoName": "KN",
+    "name": "Saint Kitts and Nevis",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1869"
+    ]
+  },
+  {
+    "isoName": "LC",
+    "name": "Saint Lucia",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1758"
+    ]
+  },
+  {
+    "isoName": "MF",
+    "name": "Saint Martin",
+    "continent": "Americas",
+    "callingCodes": [
+      "+590"
+    ]
+  },
+  {
+    "isoName": "PM",
+    "name": "Saint Pierre and Miquelon",
+    "continent": "Americas",
+    "callingCodes": [
+      "+508"
+    ]
+  },
+  {
+    "isoName": "VC",
+    "name": "Saint Vincent and the Grenadines",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1784"
+    ]
+  },
+  {
+    "isoName": "WS",
+    "name": "Samoa",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+685"
+    ]
+  },
+  {
+    "isoName": "SM",
+    "name": "San Marino",
+    "continent": "Europe",
+    "callingCodes": [
+      "+378"
+    ]
+  },
+  {
+    "isoName": "ST",
+    "name": "São Tomé and Príncipe",
+    "continent": "Africa",
+    "callingCodes": [
+      "+239"
+    ]
+  },
+  {
+    "isoName": "SA",
+    "name": "Saudi Arabia",
+    "continent": "Asia",
+    "callingCodes": [
+      "+966"
+    ]
+  },
+  {
+    "isoName": "SN",
+    "name": "Senegal",
+    "continent": "Africa",
+    "callingCodes": [
+      "+221"
+    ]
+  },
+  {
+    "isoName": "RS",
+    "name": "Serbia",
+    "continent": "Europe",
+    "callingCodes": [
+      "+381"
+    ]
+  },
+  {
+    "isoName": "SC",
+    "name": "Seychelles",
+    "continent": "Africa",
+    "callingCodes": [
+      "+248"
+    ]
+  },
+  {
+    "isoName": "SL",
+    "name": "Sierra Leone",
+    "continent": "Africa",
+    "callingCodes": [
+      "+232"
+    ]
+  },
+  {
+    "isoName": "SG",
+    "name": "Singapore",
+    "continent": "Asia",
+    "callingCodes": [
+      "+65"
+    ]
+  },
+  {
+    "isoName": "SX",
+    "name": "Sint Maarten",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1721"
+    ]
+  },
+  {
+    "isoName": "SK",
+    "name": "Slovakia",
+    "continent": "Europe",
+    "callingCodes": [
+      "+421"
+    ]
+  },
+  {
+    "isoName": "SI",
+    "name": "Slovenia",
+    "continent": "Europe",
+    "callingCodes": [
+      "+386"
+    ]
+  },
+  {
+    "isoName": "SB",
+    "name": "Solomon Islands",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+677"
+    ]
+  },
+  {
+    "isoName": "SO",
+    "name": "Somalia",
+    "continent": "Africa",
+    "callingCodes": [
+      "+252"
+    ]
+  },
+  {
+    "isoName": "ZA",
+    "name": "South Africa",
+    "continent": "Africa",
+    "callingCodes": [
+      "+27"
+    ]
+  },
+  {
+    "isoName": "GS",
+    "name": "South Georgia",
+    "continent": "Antarctic",
+    "callingCodes": [
+      "+500"
+    ]
+  },
+  {
+    "isoName": "KR",
+    "name": "South Korea",
+    "continent": "Asia",
+    "callingCodes": [
+      "+82"
+    ]
+  },
+  {
+    "isoName": "SS",
+    "name": "South Sudan",
+    "continent": "Africa",
+    "callingCodes": [
+      "+211"
+    ]
+  },
+  {
+    "isoName": "ES",
+    "name": "Spain",
+    "continent": "Europe",
+    "callingCodes": [
+      "+34"
+    ]
+  },
+  {
+    "isoName": "LK",
+    "name": "Sri Lanka",
+    "continent": "Asia",
+    "callingCodes": [
+      "+94"
+    ]
+  },
+  {
+    "isoName": "SD",
+    "name": "Sudan",
+    "continent": "Africa",
+    "callingCodes": [
+      "+249"
+    ]
+  },
+  {
+    "isoName": "SR",
+    "name": "Suriname",
+    "continent": "Americas",
+    "callingCodes": [
+      "+597"
+    ]
+  },
+  {
+    "isoName": "SJ",
+    "name": "Svalbard and Jan Mayen",
+    "continent": "Europe",
+    "callingCodes": [
+      "+4779"
+    ]
+  },
+  {
+    "isoName": "SE",
+    "name": "Sweden",
+    "continent": "Europe",
+    "callingCodes": [
+      "+46"
+    ]
+  },
+  {
+    "isoName": "CH",
+    "name": "Switzerland",
+    "continent": "Europe",
+    "callingCodes": [
+      "+41"
+    ]
+  },
+  {
+    "isoName": "SY",
+    "name": "Syria",
+    "continent": "Asia",
+    "callingCodes": [
+      "+963"
+    ]
+  },
+  {
+    "isoName": "TW",
+    "name": "Taiwan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+886"
+    ]
+  },
+  {
+    "isoName": "TJ",
+    "name": "Tajikistan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+992"
+    ]
+  },
+  {
+    "isoName": "TZ",
+    "name": "Tanzania",
+    "continent": "Africa",
+    "callingCodes": [
+      "+255"
+    ]
+  },
+  {
+    "isoName": "TH",
+    "name": "Thailand",
+    "continent": "Asia",
+    "callingCodes": [
+      "+66"
+    ]
+  },
+  {
+    "isoName": "TL",
+    "name": "Timor-Leste",
+    "continent": "Asia",
+    "callingCodes": [
+      "+670"
+    ]
+  },
+  {
+    "isoName": "TG",
+    "name": "Togo",
+    "continent": "Africa",
+    "callingCodes": [
+      "+228"
+    ]
+  },
+  {
+    "isoName": "TK",
+    "name": "Tokelau",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+690"
+    ]
+  },
+  {
+    "isoName": "TO",
+    "name": "Tonga",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+676"
+    ]
+  },
+  {
+    "isoName": "TT",
+    "name": "Trinidad and Tobago",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1868"
+    ]
+  },
+  {
+    "isoName": "TN",
+    "name": "Tunisia",
+    "continent": "Africa",
+    "callingCodes": [
+      "+216"
+    ]
+  },
+  {
+    "isoName": "TR",
+    "name": "Turkey",
+    "continent": "Asia",
+    "callingCodes": [
+      "+90"
+    ]
+  },
+  {
+    "isoName": "TM",
+    "name": "Turkmenistan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+993"
+    ]
+  },
+  {
+    "isoName": "TC",
+    "name": "Turks and Caicos Islands",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1649"
+    ]
+  },
+  {
+    "isoName": "TV",
+    "name": "Tuvalu",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+688"
+    ]
+  },
+  {
+    "isoName": "UG",
+    "name": "Uganda",
+    "continent": "Africa",
+    "callingCodes": [
+      "+256"
+    ]
+  },
+  {
+    "isoName": "UA",
+    "name": "Ukraine",
+    "continent": "Europe",
+    "callingCodes": [
+      "+380"
+    ]
+  },
+  {
+    "isoName": "AE",
+    "name": "United Arab Emirates",
+    "continent": "Asia",
+    "callingCodes": [
+      "+971"
+    ]
+  },
+  {
+    "isoName": "GB",
+    "name": "United Kingdom",
+    "continent": "Europe",
+    "callingCodes": [
+      "+44"
+    ]
+  },
+  {
+    "isoName": "US",
+    "name": "United States",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1201"
+    ]
+  },
+  {
+    "isoName": "UM",
+    "name": "United States Minor Outlying Islands",
+    "continent": "Americas",
+    "callingCodes": [
+      "+268"
+    ]
+  },
+  {
+    "isoName": "VI",
+    "name": "United States Virgin Islands",
+    "continent": "Americas",
+    "callingCodes": [
+      "+1340"
+    ]
+  },
+  {
+    "isoName": "UY",
+    "name": "Uruguay",
+    "continent": "Americas",
+    "callingCodes": [
+      "+598"
+    ]
+  },
+  {
+    "isoName": "UZ",
+    "name": "Uzbekistan",
+    "continent": "Asia",
+    "callingCodes": [
+      "+998"
+    ]
+  },
+  {
+    "isoName": "VU",
+    "name": "Vanuatu",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+678"
+    ]
+  },
+  {
+    "isoName": "VA",
+    "name": "Vatican City",
+    "continent": "Europe",
+    "callingCodes": [
+      "+3906698"
+    ]
+  },
+  {
+    "isoName": "VE",
+    "name": "Venezuela",
+    "continent": "Americas",
+    "callingCodes": [
+      "+58"
+    ]
+  },
+  {
+    "isoName": "VN",
+    "name": "Vietnam",
+    "continent": "Asia",
+    "callingCodes": [
+      "+84"
+    ]
+  },
+  {
+    "isoName": "WF",
+    "name": "Wallis and Futuna",
+    "continent": "Oceania",
+    "callingCodes": [
+      "+681"
+    ]
+  },
+  {
+    "isoName": "EH",
+    "name": "Western Sahara",
+    "continent": "Africa",
+    "callingCodes": [
+      "+2125288"
+    ]
+  },
+  {
+    "isoName": "YE",
+    "name": "Yemen",
+    "continent": "Asia",
+    "callingCodes": [
+      "+967"
+    ]
+  },
+  {
+    "isoName": "ZM",
+    "name": "Zambia",
+    "continent": "Africa",
+    "callingCodes": [
+      "+260"
+    ]
+  },
+  {
+    "isoName": "ZW",
+    "name": "Zimbabwe",
+    "continent": "Africa",
+    "callingCodes": [
+      "+263"
+    ]
+  }
+]

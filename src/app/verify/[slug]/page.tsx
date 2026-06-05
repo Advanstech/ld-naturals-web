@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { Star, CheckCircle2, Phone, MessageSquare, User, Loader2, Sparkles, Globe } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
+import localCountries from '@/lib/countries.json';
 
 
 export default function VerifyPage() {
@@ -21,7 +22,7 @@ export default function VerifyPage() {
   const [reviewerName, setReviewerName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countryCode, setCountryCode] = useState('GH'); // Default ISO Code for Ghana
-  const [countries, setCountries] = useState<any[]>([]);
+  const [countries, setCountries] = useState<any[]>(localCountries);
   
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -31,14 +32,8 @@ export default function VerifyPage() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [productData, countriesData] = await Promise.all([
-          fetchApi(`/products/${slug}`),
-          fetchApi(`/verify/countries`).catch(() => []) // Fallback to empty array if fails
-        ]);
+        const productData = await fetchApi(`/products/${slug}`);
         setProduct(productData);
-        if (countriesData && Array.isArray(countriesData)) {
-          setCountries(countriesData);
-        }
       } catch (err: any) {
         setError(err.message || 'Product not found.');
       } finally {
