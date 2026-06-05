@@ -3,6 +3,13 @@
 import { useState, useEffect } from "react";
 import { Loader2, Search, CheckCircle2, ShieldCheck, Download, Eye, X, Star } from "lucide-react";
 import { fetchApi } from "@/lib/api";
+import localCountries from "@/lib/countries.json";
+
+const getCountryInfo = (isoName: string) => {
+  const country = localCountries.find((c: any) => c.isoName === isoName);
+  if (!country) return { name: isoName, callingCode: '' };
+  return { name: country.name, callingCode: country.callingCodes[0] || '' };
+};
 
 export default function AdminVerificationsPage() {
   const [claims, setClaims] = useState<any[]>([]);
@@ -131,7 +138,10 @@ export default function AdminVerificationsPage() {
                       {claim.product?.name || 'Unknown Product'}
                     </td>
                     <td className="p-4 text-sm whitespace-nowrap font-mono text-cocoa/70">
-                      +{claim.countryCode} {claim.phoneNumber}
+                      <div className="flex flex-col">
+                        <span>{getCountryInfo(claim.countryCode).callingCode} {claim.phoneNumber}</span>
+                        <span className="text-[10px] uppercase font-sans tracking-widest text-cocoa/40">{getCountryInfo(claim.countryCode).name}</span>
+                      </div>
                     </td>
                     <td className="p-4 whitespace-nowrap">
                       {claim.rewardClaimed ? (
@@ -185,7 +195,8 @@ export default function AdminVerificationsPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-[10px] font-bold uppercase tracking-widest text-cocoa/50 mb-1">Phone Number</p>
-                  <p className="text-lg font-mono font-bold text-cocoa">+{selectedClaim.countryCode} {selectedClaim.phoneNumber}</p>
+                  <p className="text-lg font-mono font-bold text-cocoa">{getCountryInfo(selectedClaim.countryCode).callingCode} {selectedClaim.phoneNumber}</p>
+                  <p className="text-xs text-cocoa/50 mt-1 uppercase tracking-wider">{getCountryInfo(selectedClaim.countryCode).name}</p>
                 </div>
               </div>
 
