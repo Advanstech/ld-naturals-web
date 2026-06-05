@@ -10,6 +10,7 @@ interface Customer {
   firstName: string | null;
   lastName: string | null;
   phone: string | null;
+  country: string | null;
   createdAt: string;
   orders: any[];
 }
@@ -95,7 +96,9 @@ export default function AdminCustomers() {
                             {name}
                           </td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-cocoa/60">{customer.email}</td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-cocoa/60">{customer.phone || 'N/A'}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-cocoa/60">
+                            {customer.phone ? `${customer.country ? `[${customer.country}] ` : ''}${customer.phone}` : 'N/A'}
+                          </td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-cocoa/60">{customer.orders?.length || 0}</td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-cocoa/60">
                             {new Date(customer.createdAt).toLocaleDateString()}

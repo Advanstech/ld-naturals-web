@@ -22,6 +22,7 @@ export default function AdminProducts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [qrProduct, setQrProduct] = useState<Product | null>(null);
+  const [downloadingQr, setDownloadingQr] = useState(false);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -46,6 +47,29 @@ export default function AdminProducts() {
       setProducts(products.filter(p => p.id !== id));
     } catch (err: any) {
       alert('Failed to delete product: ' + err.message);
+    }
+  };
+
+  const handleDownloadQr = async () => {
+    if (!qrProduct) return;
+    setDownloadingQr(true);
+    try {
+      const url = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`https://ldnaturals.com/verify/${qrProduct.slug}`)}`;
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = `${qrProduct.slug}-qr.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+      alert("Failed to download QR code. Please try again.");
+    } finally {
+      setDownloadingQr(false);
     }
   };
 
@@ -185,15 +209,13 @@ export default function AdminProducts() {
               <p className="text-[10px] text-cocoa/60 mb-4 px-4 leading-relaxed">
                 Scan this code to instantly open the product page on your mobile device.
               </p>
-              <a 
-                href={`https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`https://ldnaturals.com/verify/${qrProduct.slug}`)}`}
-                download={`${qrProduct.slug}-qr.png`}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full inline-flex justify-center items-center rounded-md bg-cocoa px-4 py-2.5 text-xs font-semibold text-ivory shadow-sm hover:bg-terracotta transition-colors uppercase tracking-widest"
+              <button 
+                onClick={handleDownloadQr}
+                disabled={downloadingQr}
+                className="w-full inline-flex justify-center items-center rounded-md bg-cocoa px-4 py-2.5 text-xs font-semibold text-ivory shadow-sm hover:bg-terracotta transition-colors uppercase tracking-widest disabled:opacity-50"
               >
-                Download HQ Image
-              </a>
+                {downloadingQr ? "Downloading..." : "Download HQ Image"}
+              </button>
             </div>
           </div>
         </div>
