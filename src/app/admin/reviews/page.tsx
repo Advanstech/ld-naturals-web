@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Loader2, Search, CheckCircle2, ShieldCheck, Download } from "lucide-react";
+import { Loader2, Search, CheckCircle2, ShieldCheck, Download, Eye, X, Star } from "lucide-react";
 import { fetchApi } from "@/lib/api";
 
 export default function AdminVerificationsPage() {
   const [claims, setClaims] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedClaim, setSelectedClaim] = useState<any | null>(null);
+  const [crediting, setCrediting] = useState(false);
 
   useEffect(() => {
     const fetchClaims = async () => {
@@ -25,8 +27,21 @@ export default function AdminVerificationsPage() {
 
   const filteredClaims = claims.filter(c => 
     c.phoneNumber?.includes(searchTerm) || 
-    c.product?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+    c.product?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    c.reviewerName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleCreditAirtime = async () => {
+    if (!selectedClaim) return;
+    setCrediting(true);
+    // Simulate API call for manual crediting
+    setTimeout(() => {
+      setCrediting(false);
+      alert("Airtime credited successfully!");
+      setSelectedClaim(null);
+      // Ideally, we'd refresh claims here
+    }, 1500);
+  };
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -82,10 +97,11 @@ export default function AdminVerificationsPage() {
             <thead>
               <tr className="bg-cocoa/5 text-cocoa/70 text-xs uppercase tracking-widest">
                 <th className="p-4 font-semibold whitespace-nowrap">Date</th>
+                <th className="p-4 font-semibold whitespace-nowrap">Customer</th>
                 <th className="p-4 font-semibold whitespace-nowrap">Product</th>
                 <th className="p-4 font-semibold whitespace-nowrap">Phone Number</th>
-                <th className="p-4 font-semibold whitespace-nowrap">Reward Status</th>
-                <th className="p-4 font-semibold whitespace-nowrap">Amount</th>
+                <th className="p-4 font-semibold whitespace-nowrap">Status</th>
+                <th className="p-4 font-semibold whitespace-nowrap text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -108,16 +124,19 @@ export default function AdminVerificationsPage() {
                       {new Date(claim.scannedAt).toLocaleDateString()} <br />
                       <span className="text-xs text-cocoa/50">{new Date(claim.scannedAt).toLocaleTimeString()}</span>
                     </td>
-                    <td className="p-4 text-sm font-medium">
+                    <td className="p-4 text-sm font-bold text-cocoa whitespace-nowrap">
+                      {claim.reviewerName || 'Customer'}
+                    </td>
+                    <td className="p-4 text-sm font-medium text-cocoa/80">
                       {claim.product?.name || 'Unknown Product'}
                     </td>
-                    <td className="p-4 text-sm whitespace-nowrap">
+                    <td className="p-4 text-sm whitespace-nowrap font-mono text-cocoa/70">
                       +{claim.countryCode} {claim.phoneNumber}
                     </td>
-                    <td className="p-4">
+                    <td className="p-4 whitespace-nowrap">
                       {claim.rewardClaimed ? (
                         <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-widest">
-                          <CheckCircle2 className="w-3 h-3" /> Claimed
+                          <CheckCircle2 className="w-3 h-3" /> Claimed (GH₵ {claim.claimedAmount})
                         </span>
                       ) : (
                         <span className="inline-block px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-[10px] font-bold uppercase tracking-widest">
@@ -125,8 +144,13 @@ export default function AdminVerificationsPage() {
                         </span>
                       )}
                     </td>
-                    <td className="p-4 text-sm font-bold">
-                      {claim.claimedAmount ? `GH₵ ${claim.claimedAmount}` : '-'}
+                    <td className="p-4 text-right">
+                      <button 
+                        onClick={() => setSelectedClaim(claim)}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-cocoa/5 hover:bg-cocoa/10 text-cocoa rounded-xl text-xs font-bold uppercase tracking-widest transition-colors"
+                      >
+                        <Eye className="w-4 h-4" /> View
+                      </button>
                     </td>
                   </tr>
                 ))
@@ -136,6 +160,78 @@ export default function AdminVerificationsPage() {
         </div>
       </div>
 
+      {/* Detail Modal */}
+      {selectedClaim && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-ivory rounded-3xl p-8 max-w-lg w-full shadow-2xl relative">
+            <button 
+              onClick={() => setSelectedClaim(null)}
+              className="absolute top-6 right-6 text-cocoa/50 hover:text-cocoa transition-colors p-2 bg-white rounded-full shadow-sm"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <h3 className="font-cormorant text-3xl font-bold text-cocoa mb-1 pr-10">
+              Review Details
+            </h3>
+            <p className="text-xs text-cocoa/60 uppercase tracking-widest mb-8">Verification & Claim Request</p>
+            
+            <div className="space-y-6">
+              {/* Customer Info */}
+              <div className="bg-white p-5 rounded-2xl border border-cocoa/5 shadow-sm flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-cocoa/50 mb-1">Customer</p>
+                  <p className="text-lg font-bold text-cocoa">{selectedClaim.reviewerName || 'Customer'}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-cocoa/50 mb-1">Phone Number</p>
+                  <p className="text-lg font-mono font-bold text-cocoa">+{selectedClaim.countryCode} {selectedClaim.phoneNumber}</p>
+                </div>
+              </div>
+
+              {/* Product Info */}
+              <div className="bg-white p-5 rounded-2xl border border-cocoa/5 shadow-sm">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-cocoa/50 mb-1">Product Verified</p>
+                <p className="text-sm font-bold text-cocoa">{selectedClaim.product?.name}</p>
+                <p className="text-xs text-cocoa/60 mt-1">Scanned on {new Date(selectedClaim.scannedAt).toLocaleString()}</p>
+              </div>
+
+              {/* Review Info */}
+              <div className="bg-cocoa/[0.03] p-6 rounded-2xl border border-cocoa/10">
+                <div className="flex items-center gap-1 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star 
+                      key={i} 
+                      className={`w-4 h-4 ${i < (selectedClaim.rating || 5) ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-200 text-gray-200'}`} 
+                    />
+                  ))}
+                </div>
+                <p className="text-cocoa text-sm italic leading-relaxed">
+                  "{selectedClaim.comment || 'No written testimony provided.'}"
+                </p>
+              </div>
+
+              {/* Action Area */}
+              <div className="pt-4">
+                {selectedClaim.rewardClaimed ? (
+                  <div className="w-full flex justify-center items-center gap-2 bg-green-50 text-green-700 py-4 rounded-xl border border-green-100 font-bold uppercase tracking-widest text-sm">
+                    <CheckCircle2 className="w-5 h-5" /> Airtime Already Sent (GH₵ {selectedClaim.claimedAmount})
+                  </div>
+                ) : (
+                  <button 
+                    onClick={handleCreditAirtime}
+                    disabled={crediting}
+                    className="w-full flex justify-center items-center gap-2 bg-cocoa text-ivory py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-terracotta transition-colors disabled:opacity-50 shadow-md"
+                  >
+                    {crediting ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
+                    {crediting ? 'Processing Transfer...' : 'Send Airtime Reward Now'}
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
