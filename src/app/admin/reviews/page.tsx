@@ -138,8 +138,16 @@ export default function AdminVerificationsPage() {
                       {claim.product?.name || 'Unknown Product'}
                     </td>
                     <td className="p-4 text-sm whitespace-nowrap font-mono text-cocoa/70">
-                      <div className="flex flex-col">
-                        <span>{getCountryInfo(claim.countryCode).callingCode} {claim.phoneNumber}</span>
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-2">
+                          <img 
+                            src={`https://s3.amazonaws.com/rld-flags/${claim.countryCode?.toLowerCase() || 'gh'}.svg`} 
+                            alt="flag" 
+                            className="w-4 h-3 object-cover rounded-[2px] shadow-sm"
+                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                          />
+                          <span>{getCountryInfo(claim.countryCode).callingCode} {claim.phoneNumber}</span>
+                        </div>
                         <span className="text-[10px] uppercase font-sans tracking-widest text-cocoa/40">{getCountryInfo(claim.countryCode).name}</span>
                       </div>
                     </td>
@@ -193,10 +201,18 @@ export default function AdminVerificationsPage() {
                   <p className="text-[10px] font-bold uppercase tracking-widest text-cocoa/50 mb-1">Customer</p>
                   <p className="text-lg font-bold text-cocoa">{selectedClaim.reviewerName || 'Customer'}</p>
                 </div>
-                <div className="text-right">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-cocoa/50 mb-1">Phone Number</p>
-                  <p className="text-lg font-mono font-bold text-cocoa">{getCountryInfo(selectedClaim.countryCode).callingCode} {selectedClaim.phoneNumber}</p>
-                  <p className="text-xs text-cocoa/50 mt-1 uppercase tracking-wider">{getCountryInfo(selectedClaim.countryCode).name}</p>
+                <div className="text-right flex flex-col items-end">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-cocoa/50 mb-1">Phone Number & Country</p>
+                  <div className="flex items-center gap-2">
+                    <img 
+                      src={`https://s3.amazonaws.com/rld-flags/${selectedClaim.countryCode?.toLowerCase() || 'gh'}.svg`} 
+                      alt="flag" 
+                      className="w-5 h-3.5 object-cover rounded-[2px] shadow-sm"
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    />
+                    <p className="text-lg font-mono font-bold text-cocoa">{getCountryInfo(selectedClaim.countryCode).callingCode} {selectedClaim.phoneNumber}</p>
+                  </div>
+                  <p className="text-xs text-cocoa/50 mt-1 font-semibold uppercase tracking-wider">{getCountryInfo(selectedClaim.countryCode).name}</p>
                 </div>
               </div>
 
