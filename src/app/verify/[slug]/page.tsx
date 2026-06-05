@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import Image from 'next/image';
-import { Star, CheckCircle2, Phone, MessageSquare, User, Loader2, Sparkles } from 'lucide-react';
+import { Star, CheckCircle2, Phone, MessageSquare, User, Loader2, Sparkles, Globe } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
+
 
 export default function VerifyPage() {
   const params = useParams();
@@ -14,30 +14,63 @@ export default function VerifyPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [rating, setRating] = useState(5);
+  // Form State
+  const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [comment, setComment] = useState('');
   const [reviewerName, setReviewerName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [countryCode, setCountryCode] = useState('233'); // Default to Ghana
+  const [countryCode, setCountryCode] = useState('GH'); // Default ISO Code for Ghana
+  const [countries, setCountries] = useState<any[]>([]);
   
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  // Load product & countries
   useEffect(() => {
-    const loadProduct = async () => {
+    const loadData = async () => {
       try {
-        const data = await fetchApi(`/products/${slug}`);
-        setProduct(data);
+        const [productData, countriesData] = await Promise.all([
+          fetchApi(`/products/${slug}`),
+          fetchApi(`/verify/countries`).catch(() => []) // Fallback to empty array if fails
+        ]);
+        setProduct(productData);
+        if (countriesData && Array.isArray(countriesData)) {
+          setCountries(countriesData);
+        }
       } catch (err: any) {
         setError(err.message || 'Product not found.');
       } finally {
         setLoading(false);
       }
     };
-    loadProduct();
+    loadData();
   }, [slug]);
+
+  // Load persisted form data from localStorage
+  useEffect(() => {
+    const savedName = localStorage.getItem('verify_name');
+    const savedPhone = localStorage.getItem('verify_phone');
+    const savedCode = localStorage.getItem('verify_code');
+    const savedComment = localStorage.getItem('verify_comment');
+    const savedRating = localStorage.getItem('verify_rating');
+
+    if (savedName) setReviewerName(savedName);
+    if (savedPhone) setPhoneNumber(savedPhone);
+    if (savedCode) setCountryCode(savedCode);
+    if (savedComment) setComment(savedComment);
+    if (savedRating) setRating(parseInt(savedRating, 10));
+  }, []);
+
+  // Save to localStorage when form values change
+  useEffect(() => {
+    localStorage.setItem('verify_name', reviewerName);
+    localStorage.setItem('verify_phone', phoneNumber);
+    localStorage.setItem('verify_code', countryCode);
+    localStorage.setItem('verify_comment', comment);
+    localStorage.setItem('verify_rating', rating.toString());
+  }, [reviewerName, phoneNumber, countryCode, comment, rating]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,8 +79,9 @@ export default function VerifyPage() {
 
     try {
       if (!product?.id) throw new Error("Invalid product ID");
+      if (rating === 0) throw new Error("Please select a star rating before submitting.");
 
-      const response = await fetchApi(`/verify/reward/${product.id}`, {
+      await fetchApi(`/verify/reward/${product.id}`, {
         method: 'POST',
         body: JSON.stringify({
           phoneNumber,
@@ -59,6 +93,8 @@ export default function VerifyPage() {
       });
 
       setSuccess(true);
+      // Optional: Clear form data after success
+      // localStorage.clear();
     } catch (err: any) {
       setSubmitError(err.message || 'Failed to submit. Please try again.');
     } finally {
@@ -120,18 +156,19 @@ export default function VerifyPage() {
           </div>
           
           <div className="p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
-            <div className="w-32 h-32 relative flex-shrink-0 bg-ivory rounded-2xl overflow-hidden border border-cocoa/5">
+            <div className="w-32 h-32 relative flex-shrink-0 bg-ivory rounded-2xl overflow-hidden border border-cocoa/5 flex items-center justify-center">
               {product.images?.[0]?.url ? (
-                <Image
+                <img
                   src={product.images[0].url}
                   alt={product.name}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null; // prevent infinite loop
+                    e.currentTarget.src = '/product-scented.jpeg'; // fallback
+                  }}
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-cocoa/20">
-                  <Sparkles className="w-8 h-8" />
-                </div>
+                <Sparkles className="w-8 h-8 text-cocoa/20" />
               )}
             </div>
             <div className="text-center sm:text-left">
@@ -211,23 +248,35 @@ export default function VerifyPage() {
 
             <div className="h-px bg-cocoa/10 my-8"></div>
 
-            {/* Phone Number */}
+            {/* Phone Number with Country Select */}
             <div>
               <label className="block text-sm font-medium text-cocoa mb-2 flex items-center gap-2">
                 <Phone className="w-4 h-4 text-terracotta" />
                 Phone Number for Airtime
               </label>
-              <div className="flex gap-3">
-                <div className="relative w-1/3 sm:w-1/4">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-cocoa/50">+</span>
-                  <input
-                    type="text"
-                    required
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative w-full sm:w-1/2">
+                  <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-cocoa/50">
+                    <Globe className="w-4 h-4" />
+                  </div>
+                  <select
                     value={countryCode}
-                    onChange={(e) => setCountryCode(e.target.value.replace(/\D/g, ''))}
-                    placeholder="233"
-                    className="w-full pl-8 pr-4 py-3 rounded-xl border border-cocoa/20 focus:border-terracotta focus:ring-1 focus:ring-terracotta outline-none transition-all bg-ivory/50"
-                  />
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className="w-full pl-9 pr-8 py-3 rounded-xl border border-cocoa/20 focus:border-terracotta focus:ring-1 focus:ring-terracotta outline-none transition-all bg-ivory/50 appearance-none text-sm"
+                  >
+                    {countries.length > 0 ? (
+                      countries.map((country: any) => (
+                        <option key={country.isoName} value={country.isoName}>
+                          {country.name} ({country.callingCodes?.[0] || ''})
+                        </option>
+                      ))
+                    ) : (
+                      <option value="GH">Ghana (+233)</option>
+                    )}
+                  </select>
+                  <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-cocoa/50">
+                    <span className="text-xs">▼</span>
+                  </div>
                 </div>
                 <input
                   type="tel"
@@ -235,10 +284,10 @@ export default function VerifyPage() {
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
                   placeholder="24 123 4567"
-                  className="w-full px-4 py-3 rounded-xl border border-cocoa/20 focus:border-terracotta focus:ring-1 focus:ring-terracotta outline-none transition-all bg-ivory/50"
+                  className="w-full sm:w-1/2 px-4 py-3 rounded-xl border border-cocoa/20 focus:border-terracotta focus:ring-1 focus:ring-terracotta outline-none transition-all bg-ivory/50"
                 />
               </div>
-              <p className="text-xs text-cocoa/50 mt-2">Enter your number without the leading zero if using country code.</p>
+              <p className="text-xs text-cocoa/50 mt-2">Enter your number without the leading zero.</p>
             </div>
 
             {submitError && (

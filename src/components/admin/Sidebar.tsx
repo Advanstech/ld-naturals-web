@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ShoppingBag, ShoppingCart, Users, LogOut } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, ShoppingCart, Users, LogOut, ShieldCheck } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 
@@ -15,6 +15,7 @@ export default function Sidebar() {
     { name: 'Products', href: '/admin/products', icon: ShoppingBag },
     { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
     { name: 'Customers', href: '/admin/customers', icon: Users },
+    { name: 'Reviews', href: '/admin/reviews', icon: ShieldCheck },
   ];
 
   const handleLogout = async () => {
