@@ -107,7 +107,7 @@ export default function RitualsPage() {
                     href="/checkout"
                     className="mt-5 inline-flex rounded-full border border-gold/45 bg-cocoa px-6 py-3 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-gold transition hover:bg-gold hover:text-cocoa"
                   >
-                    Buy Now — GH₵ 45
+                    Buy Now — GH₵ 120
                   </Link>
                 </div>
               </article>

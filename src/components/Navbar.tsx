@@ -19,6 +19,7 @@ export default function Navbar() {
               src="/logo.png" 
               alt="Live Daily Logo" 
               fill
+              sizes="80px"
               className="object-contain p-2"
               priority
             />
@@ -26,9 +27,12 @@ export default function Navbar() {
         </Link>
 
         <div className="flex flex-1 items-center justify-end gap-5">
-          <button className="hover:opacity-70 transition-opacity hidden md:block">
+          <Link href="/products" className="hidden lg:block text-xs uppercase tracking-widest font-semibold text-gold hover:opacity-70 transition-opacity">
+            Shop
+          </Link>
+          <Link href="/login" className="hover:opacity-70 transition-opacity hidden md:block">
             <User className="w-5 h-5" />
-          </button>
+          </Link>
           <button className="hover:opacity-70 transition-opacity flex items-center gap-2">
             <ShoppingBag className="w-5 h-5" />
             <span className="text-sm font-medium">0</span>

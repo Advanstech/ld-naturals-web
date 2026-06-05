@@ -20,7 +20,7 @@ const products = [
     description:
       "Infused with natural botanical aromatic notes for a luxurious daily cleansing ritual. Rich Ghanaian cocoa butter cushions the skin, leaving it smooth, luminous, and deeply nourished.",
     badges: ["Aromatic", "Glow-Boosting", "Hydrating", "All Skin Types"],
-    image: "/eco_botanical_ritual.png",
+    image: "/scented-box.jpeg",
     bg: "#f4ecd8",
   },
   {
@@ -32,7 +32,7 @@ const products = [
     description:
       "A gentle, fragrance-free daily bar designed for sensitive and melanin-rich skin. Maintains moisture barrier health while the traditional black soap base clarifies and exfoliates.",
     badges: ["Sensitive-Safe", "Clarifying", "Barrier-Care", "Unscented"],
-    image: "/eco_sensitive_skin.png",
+    image: "/unscented.jpeg",
     bg: "#e9dfc2",
   },
 ];
@@ -145,7 +145,7 @@ export default function ProductsPage() {
                       {[
                         ["Weight", "100g"],
                         ["Skin Types", "Dry · Oily · Combination · Sensitive"],
-                        ["Price", "GH₵ 45.00"],
+                        ["Price", "GH₵ 120.00"],
                         ["Origin", "Handcrafted in Ghana"],
                       ].map(([k, v]) => (
                         <div key={k} className="flex justify-between">
@@ -158,7 +158,7 @@ export default function ProductsPage() {
                       href="/checkout"
                       className="inline-flex w-full items-center justify-center rounded-full border border-gold/45 bg-cocoa px-8 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-gold transition hover:bg-gold hover:text-cocoa"
                     >
-                      Buy Now — GH₵ 45
+                      Buy Now — GH₵ 120
                     </Link>
                   </div>
                 </div>

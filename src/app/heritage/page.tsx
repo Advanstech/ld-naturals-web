@@ -36,7 +36,7 @@ export default function HeritagePage() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
             <article className="overflow-hidden rounded-[2rem] border border-gold/20 bg-black/20 shadow-[0_30px_100px_rgba(0,0,0,0.25)]">
               <div className="relative h-80 w-full">
-                <Image src="/brand-culture.svg" alt="Ghanaian culture" fill className="object-cover" />
+                <Image src="/eco_indigenous_craft.png" alt="Ghanaian culture" fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               </div>
               <div className="p-8">
@@ -51,7 +51,7 @@ export default function HeritagePage() {
 
             <article className="overflow-hidden rounded-[2rem] border border-gold/20 bg-black/20 shadow-[0_30px_100px_rgba(0,0,0,0.25)]">
               <div className="relative h-80 w-full">
-                <Image src="/brand-packaging.svg" alt="Heritage packaging" fill className="object-cover" />
+                <Image src="/eco_bilingual_packaging.png" alt="Heritage packaging" fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               </div>
               <div className="p-8">

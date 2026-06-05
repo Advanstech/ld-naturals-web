@@ -23,16 +23,16 @@ export default function Footer() {
                 <li><Link href="/" className="transition hover:text-gold">Home</Link></li>
                 <li><Link href="/quiz" className="transition hover:text-gold">AI Skin Quiz</Link></li>
                 <li><Link href="/checkout" className="transition hover:text-gold">Checkout</Link></li>
-                <li><a href="#" className="transition hover:text-gold">Our Story</a></li>
+                <li><Link href="/about" className="transition hover:text-gold">Our Story</Link></li>
               </ul>
             </div>
             <div>
               <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold">Support</h3>
               <ul className="space-y-3 text-ivory/75">
-                <li><a href="#" className="transition hover:text-gold">Shipping & Returns</a></li>
-                <li><a href="#" className="transition hover:text-gold">Wholesale</a></li>
-                <li><a href="#" className="transition hover:text-gold">Contact</a></li>
-                <li><a href="#" className="transition hover:text-gold">FAQ</a></li>
+                <li><Link href="/shipping" className="transition hover:text-gold">Shipping & Returns</Link></li>
+                <li><Link href="/wholesale" className="transition hover:text-gold">Wholesale</Link></li>
+                <li><Link href="/contact" className="transition hover:text-gold">Contact</Link></li>
+                <li><Link href="/faq" className="transition hover:text-gold">FAQ</Link></li>
               </ul>
             </div>
           </div>

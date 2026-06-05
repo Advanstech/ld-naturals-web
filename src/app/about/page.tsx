@@ -55,8 +55,8 @@ export default function AboutPage() {
                 needed this, packaged with the pride and elegance Ghana deserves.
               </p>
             </div>
-            <div className="relative h-96 overflow-hidden rounded-[2rem] border border-cocoa/12">
-              <Image src="/brand-soil.svg" alt="Ghanaian botanical heritage" fill className="object-cover" />
+            <div className="relative h-96 overflow-hidden rounded-[2rem] border border-cocoa/12 shadow-[0_30px_100px_rgba(62,40,27,0.1)]">
+              <Image src="/eco_the_source.png" alt="Ghanaian botanical heritage" fill className="object-cover" />
             </div>
           </div>
         </div>
