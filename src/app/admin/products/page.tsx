@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { fetchApi } from '@/lib/api';
 import { Plus, Pencil, Trash2, QrCode, X } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Product {
   id: string;
@@ -156,10 +157,10 @@ export default function AdminProducts() {
                             <span className="sr-only">Generate QR Code</span>
                             <QrCode className="h-4 w-4" />
                           </button>
-                          <button className="text-terracotta hover:text-cocoa transition-colors">
+                          <Link href={`/admin/products/${product.slug}`} className="text-terracotta hover:text-cocoa transition-colors">
                             <span className="sr-only">Edit</span>
                             <Pencil className="h-4 w-4" />
-                          </button>
+                          </Link>
                           <button 
                             onClick={() => handleDelete(product.id)}
                             className="text-red-600 hover:text-red-900 transition-colors"
