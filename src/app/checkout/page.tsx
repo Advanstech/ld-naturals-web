@@ -4,10 +4,16 @@ import { useState, useEffect } from "react";
 import { useForm } from "@tanstack/react-form";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { CreditCard, Shield, Truck, Sparkles, Loader2, ArrowRight, User } from "lucide-react";
+import { CreditCard, Shield, Truck, Sparkles, Loader2, ArrowRight, User, Trash2, ShoppingBag } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function CheckoutPage() {
+  const { items, totalPrice, updateQuantity, removeFromCart, clearCart } = useCart();
+  const router = useRouter();
+
   const [session, setSession] = useState<any>(null);
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
   const [authEmail, setAuthEmail] = useState("");
@@ -20,6 +26,14 @@ export default function CheckoutPage() {
   const [isProcessing, setIsLoading] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [paymentUrl, setPaymentUrl] = useState("");
+  const [orderCompleted, setOrderCompleted] = useState(false);
+  const [completedItems, setCompletedItems] = useState<typeof items>([]);
+
+  const shippingCost = countryCode === "GH" ? 20 : 150;
+  const displaySubtotal = orderCompleted 
+    ? completedItems.reduce((t, i) => t + i.price * i.quantity, 0) 
+    : totalPrice;
+  const finalTotal = displaySubtotal + shippingCost;
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -44,7 +58,6 @@ export default function CheckoutPage() {
       if (authMode === "signup") {
         const { error } = await supabase.auth.signUp({ email: authEmail, password: authPassword });
         if (error) throw error;
-        // Auto sign in or prompt to check email based on settings, we'll assume auto sign-in for now
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email: authEmail, password: authPassword });
         if (error) throw error;
@@ -56,7 +69,6 @@ export default function CheckoutPage() {
     }
   };
 
-  // Auto-detect country code based on IP or fallback to Ghana
   useEffect(() => {
     async function detectCountry() {
       try {
@@ -90,6 +102,8 @@ export default function CheckoutPage() {
         const token = session?.access_token;
         if (!token) throw new Error("Not authenticated");
 
+        const orderItems = items.map(i => ({ slug: i.slug, quantity: i.quantity }));
+
         const response = await fetch("http://localhost:3001/api/v1/orders/checkout", {
           method: "POST",
           headers: {
@@ -97,9 +111,7 @@ export default function CheckoutPage() {
             "Authorization": `Bearer ${token}`
           },
           body: JSON.stringify({
-            items: [
-              { slug: "scented", quantity: 1 } // Hardcoded for now as cart isn't implemented
-            ],
+            items: orderItems,
             customerInfo: {
               email: value.email,
               firstName: value.fullName.split(" ")[0] || "",
@@ -123,6 +135,15 @@ export default function CheckoutPage() {
 
         setPaymentUrl(result.paymentUrl);
         setPaymentSuccess(true);
+        setOrderCompleted(true);
+        setCompletedItems([...items]);
+        clearCart();
+
+        // Redirect to order confirmation
+        setTimeout(() => {
+           router.push(`/order-confirmation?id=${result.order.id}`);
+        }, 4000);
+
       } catch (error: any) {
         console.error("Payment failed", error);
         alert(`Checkout Error: ${error.message}`);
@@ -150,16 +171,110 @@ export default function CheckoutPage() {
 
   const gateway = getGateway();
 
+  if (items.length === 0 && !paymentSuccess && !orderCompleted) {
+    return (
+      <main className="relative bg-ivory text-cocoa min-h-screen">
+        <Navbar />
+        <div className="container mx-auto px-6 py-40 text-center">
+          <ShoppingBag className="w-16 h-16 mx-auto mb-6 text-cocoa/30" />
+          <h2 className="font-cormorant text-4xl mb-4">Your cart is empty</h2>
+          <p className="mb-8 text-cocoa/70">Looks like you haven't added anything to your cart yet.</p>
+          <button 
+            onClick={() => router.push('/#products')}
+            className="inline-flex rounded-full bg-cocoa px-8 py-4 text-xs font-semibold uppercase tracking-[0.22em] text-gold transition hover:bg-terracotta"
+          >
+            Start Shopping
+          </button>
+        </div>
+        <Footer />
+      </main>
+    );
+  }
+
   return (
     <main className="relative bg-ivory text-cocoa min-h-screen">
       <Navbar />
       <div className="container mx-auto px-6 py-32">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          {/* Order Summary & Payment Method Display */}
-          <div className="lg:col-span-7 space-y-8">
+          {/* Order Summary Sidebar */}
+          <div className="lg:col-span-5 order-2 lg:order-1 space-y-6">
             <div className="bg-white/40 backdrop-blur-md rounded-2xl p-8 border border-cocoa/10 shadow-lg">
-              <h2 className="font-cormorant text-3xl mb-6">1. Delivery & Billing</h2>
+              <h3 className="font-cormorant text-3xl mb-6 border-b border-cocoa/10 pb-4">
+                {orderCompleted ? "Your Order" : "Order Summary"}
+              </h3>
+              
+              <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                {(orderCompleted ? completedItems : items).map((item) => (
+                  <div key={item.id} className="flex gap-4 items-center">
+                    <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-cocoa/5 shrink-0">
+                      {item.imageUrl && (
+                        <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-sm">{item.name}</h4>
+                      <p className="text-xs text-cocoa/60 uppercase tracking-widest mt-1">GH₵ {item.price.toFixed(2)}</p>
+                      
+                      <div className="flex items-center gap-4 mt-2">
+                        {!orderCompleted && (
+                          <>
+                            <div className="flex items-center gap-2 bg-white/60 rounded-full px-2 py-1 border border-cocoa/10">
+                              <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="w-5 h-5 flex items-center justify-center text-cocoa/60 hover:text-cocoa">-</button>
+                              <span className="text-xs font-semibold w-4 text-center">{item.quantity}</span>
+                              <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="w-5 h-5 flex items-center justify-center text-cocoa/60 hover:text-cocoa">+</button>
+                            </div>
+                            <button onClick={() => removeFromCart(item.id)} className="text-terracotta/70 hover:text-terracotta transition-colors">
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </>
+                        )}
+                        {orderCompleted && (
+                          <span className="text-xs text-cocoa/50">× {item.quantity}</span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="text-sm font-semibold">
+                      GH₵ {(item.price * item.quantity).toFixed(2)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 space-y-3 pt-6 border-t border-cocoa/10 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-cocoa/70">Subtotal</span>
+                  <span className="font-semibold">GH₵ {displaySubtotal.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-cocoa/70">Shipping</span>
+                  <span className="font-semibold">GH₵ {shippingCost.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between pt-3 border-t border-cocoa/10">
+                  <span className="font-semibold text-base uppercase tracking-widest">Total</span>
+                  <span className="font-semibold text-lg">GH₵ {finalTotal.toFixed(2)}</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-cocoa/5">
+              <div className="flex gap-4 items-start mb-4">
+                <div className="p-2 bg-cocoa/5 rounded-lg text-terracotta">
+                  <Shield className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-xs mb-1">Secure Checkout</h4>
+                  <p className="text-[10px] opacity-70 leading-relaxed">Your payment information is encrypted and secure. We do not store your credit card details.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Delivery & Billing Form */}
+          <div className="lg:col-span-7 order-1 lg:order-2 space-y-8">
+            <div className="bg-white/40 backdrop-blur-md rounded-2xl p-8 border border-cocoa/10 shadow-lg">
+              <h2 className="font-cormorant text-3xl mb-6">Delivery & Billing</h2>
               
               {!session ? (
                 <div className="bg-white/60 rounded-xl p-8 border border-cocoa/10">
@@ -341,6 +456,15 @@ export default function CheckoutPage() {
                     </form.Field>
                   )}
 
+                  {/* Payment Gateway Info */}
+                  <div className="p-4 bg-cocoa/5 rounded-xl border border-cocoa/10 flex items-start gap-4">
+                    <CreditCard className="w-5 h-5 text-terracotta shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="text-xs font-semibold uppercase tracking-widest mb-1">Paying with {gateway.name}</h4>
+                      <p className="text-[10px] text-cocoa/70">{gateway.methods}. {gateway.extra}</p>
+                    </div>
+                  </div>
+
                   {/* Submit Button */}
                   <button
                     type="submit"
@@ -349,56 +473,16 @@ export default function CheckoutPage() {
                   >
                     {isProcessing ? (
                       <>
-                        <Loader2 className="w-5 h-5 animate-spin" /> Processing with {countryCode === "GH" ? "Paystack" : "Stripe"}
+                        <Loader2 className="w-5 h-5 animate-spin" /> Processing Securely
                       </>
                     ) : (
                       <>
-                        Complete Payment — {countryCode === "GH" ? "GH₵" : "$"} 120.00 <ArrowRight className="w-4 h-4" />
+                        Complete Payment — GH₵ {finalTotal.toFixed(2)} <ArrowRight className="w-4 h-4" />
                       </>
                     )}
                   </button>
                 </form>
               )}
-            </div>
-          </div>
-
-          {/* Checkout Info Sidebar */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-8 border border-cocoa/5">
-              <h3 className="font-cormorant text-2xl mb-6">Smart Payment Gateway</h3>
-              
-              <div className="space-y-6">
-                <div className="flex gap-4 items-start">
-                  <div className="p-3 bg-cocoa/5 rounded-xl text-terracotta">
-                    <CreditCard className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-sm mb-1">{gateway.name}</h4>
-                    <p className="text-xs opacity-70 mb-1">Active Gateway: {gateway.methods}</p>
-                    <p className="text-[10px] text-terracotta font-medium uppercase tracking-wider">{gateway.extra}</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4 items-start">
-                  <div className="p-3 bg-cocoa/5 rounded-xl text-terracotta">
-                    <Shield className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-sm mb-1">Fully Secure & Encrypted</h4>
-                    <p className="text-xs opacity-70">All connections are completely end-to-end encrypted under standard TLS protocol layers.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4 items-start">
-                  <div className="p-3 bg-cocoa/5 rounded-xl text-terracotta">
-                    <Truck className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-sm mb-1">Fast Premium Shipping</h4>
-                    <p className="text-xs opacity-70">Standard next-day local delivery across Accra/Tema, or 3-5 days premium international shipping.</p>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Simulated Success Message */}
@@ -407,7 +491,7 @@ export default function CheckoutPage() {
                 <Sparkles className="w-8 h-8 text-emerald-600 mx-auto mb-4" />
                 <h3 className="font-cormorant text-2xl font-bold mb-2">Order Initialized!</h3>
                 <p className="text-sm mb-4 leading-relaxed">
-                  Thank you for nourishing daily. Your transaction of {countryCode === "GH" ? "GH₵" : "$"}120.00 is ready to be processed.
+                  Thank you for nourishing daily. Your order is being processed.
                 </p>
                 {paymentUrl && (
                   <a 
@@ -420,7 +504,7 @@ export default function CheckoutPage() {
                   </a>
                 )}
                 <div className="text-xs font-semibold uppercase tracking-widest text-emerald-700">
-                  Check your phone for USSD / Email Confirmation
+                  Redirecting to confirmation...
                 </div>
               </div>
             )}

@@ -5,12 +5,15 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCart } from "@/context/CartContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const products = [
   {
-    id: "scented",
+    id: "cocoa-black-soap-scented",
+    slug: "cocoa-black-soap-scented",
     label: "Signature Scented",
     tag: "Aromatic Ritual • 100g",
     name: "Cocoa Butter",
@@ -22,9 +25,11 @@ const products = [
     image: "/product-scented.jpeg",
     bg: "#f4ecd8",
     statColor: "text-terracotta",
+    price: 120,
   },
   {
-    id: "unscented",
+    id: "cocoa-black-soap-unscented",
+    slug: "cocoa-black-soap-unscented",
     label: "Fragrance-Free",
     tag: "Pure Calm • 100g",
     name: "Cocoa Butter",
@@ -36,6 +41,7 @@ const products = [
     image: "/product-unscented.jpeg",
     bg: "#e9dfc2",
     statColor: "text-[#8b552f]",
+    price: 120,
   },
 ];
 
@@ -47,6 +53,31 @@ const stats = [
 
 export default function ProductShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const { addToCart } = useCart();
+
+  const handleBuyNow = (p: typeof products[0]) => {
+    addToCart({
+      id: p.id,
+      slug: p.slug,
+      name: `${p.name} ${p.nameSub} (${p.label})`,
+      price: p.price,
+      quantity: 1,
+      imageUrl: p.image
+    });
+    router.push("/checkout");
+  };
+
+  const handleAddToCart = (p: typeof products[0]) => {
+    addToCart({
+      id: p.id,
+      slug: p.slug,
+      name: `${p.name} ${p.nameSub} (${p.label})`,
+      price: p.price,
+      quantity: 1,
+      imageUrl: p.image
+    });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -195,12 +226,20 @@ export default function ProductShowcase() {
                       </div>
                     ))}
                   </div>
-                  <Link
-                    href="/checkout"
-                    className="inline-flex w-full items-center justify-center rounded-full border border-gold/45 bg-cocoa px-8 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-gold shadow-[0_12px_40px_rgba(62,40,27,0.22)] transition hover:bg-gold hover:text-cocoa"
-                  >
-                    Buy Now — GH₵ 120
-                  </Link>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleAddToCart(p)}
+                      className="flex-1 rounded-full border border-cocoa/30 px-4 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-cocoa transition hover:border-cocoa hover:bg-cocoa/5"
+                    >
+                      Add to Cart
+                    </button>
+                    <button
+                      onClick={() => handleBuyNow(p)}
+                      className="flex-1 rounded-full border border-gold/45 bg-cocoa px-4 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-gold shadow-[0_12px_40px_rgba(62,40,27,0.22)] transition hover:bg-gold hover:text-cocoa"
+                    >
+                      Buy Now
+                    </button>
+                  </div>
                 </div>
               </div>
             </article>

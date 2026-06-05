@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
+import { CartProvider } from "@/context/CartContext";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -27,9 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable} antialiased`}>
       <body className="bg-ivory text-cocoa font-inter min-h-screen flex flex-col">
-        <SmoothScrolling>
-          {children}
-        </SmoothScrolling>
+        <CartProvider>
+          <SmoothScrolling>
+            {children}
+          </SmoothScrolling>
+        </CartProvider>
       </body>
     </html>
   );
