@@ -55,7 +55,8 @@ export default function AdminProducts() {
     if (!qrProduct) return;
     setDownloadingQr(true);
     try {
-      const url = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(`https://ldnaturals.com/verify/${qrProduct.slug}`)}`;
+      // Use 1000x1000 size which is high enough resolution for 300 DPI print on packaging
+      const url = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&margin=2&data=${encodeURIComponent(`https://ldnaturals.com/verify/${qrProduct.slug}`)}`;
       const response = await fetch(url);
       const blob = await response.blob();
       const blobUrl = URL.createObjectURL(blob);
