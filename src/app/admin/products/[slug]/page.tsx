@@ -122,43 +122,43 @@ export default function EditProductPage() {
       <form onSubmit={handleSubmit} className="bg-white rounded-3xl p-8 border border-cocoa/5 shadow-sm space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="block text-sm font-semibold text-cocoa">Product Name</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-cocoa/50">Product Name</label>
             <input 
               type="text" 
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-xl border border-cocoa/20 focus:ring-1 focus:ring-terracotta outline-none"
+              className="w-full px-4 py-3 bg-ivory/50 rounded-xl border border-cocoa/10 focus:ring-1 focus:ring-terracotta focus:border-terracotta outline-none text-sm font-medium text-cocoa transition-all"
             />
           </div>
           
           <div className="space-y-2">
-            <label className="block text-sm font-semibold text-cocoa">Slug (URL)</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-cocoa/50">Slug (URL)</label>
             <input 
               type="text" 
               name="slug"
               value={formData.slug}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-xl border border-cocoa/20 focus:ring-1 focus:ring-terracotta outline-none"
+              className="w-full px-4 py-3 bg-ivory/50 rounded-xl border border-cocoa/10 focus:ring-1 focus:ring-terracotta focus:border-terracotta outline-none text-sm font-medium text-cocoa transition-all"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-semibold text-cocoa">SKU</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-cocoa/50">SKU</label>
             <input 
               type="text" 
               name="sku"
               value={formData.sku}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-xl border border-cocoa/20 focus:ring-1 focus:ring-terracotta outline-none"
+              className="w-full px-4 py-3 bg-ivory/50 rounded-xl border border-cocoa/10 focus:ring-1 focus:ring-terracotta focus:border-terracotta outline-none text-sm font-medium text-cocoa transition-all"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-semibold text-cocoa">Price (GH₵)</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-cocoa/50">Price (GH₵)</label>
             <input 
               type="number" 
               name="price"
@@ -166,79 +166,79 @@ export default function EditProductPage() {
               value={formData.price}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-xl border border-cocoa/20 focus:ring-1 focus:ring-terracotta outline-none"
+              className="w-full px-4 py-3 bg-ivory/50 rounded-xl border border-cocoa/10 focus:ring-1 focus:ring-terracotta focus:border-terracotta outline-none text-sm font-medium text-cocoa transition-all"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <label className="block text-sm font-semibold text-cocoa">Description</label>
+          <label className="block text-[10px] font-bold uppercase tracking-widest text-cocoa/50">Description</label>
           <textarea 
             name="description"
             rows={4}
             value={formData.description}
             onChange={handleChange}
-            className="w-full px-4 py-2 rounded-xl border border-cocoa/20 focus:ring-1 focus:ring-terracotta outline-none"
+            className="w-full px-4 py-3 bg-ivory/50 rounded-xl border border-cocoa/10 focus:ring-1 focus:ring-terracotta focus:border-terracotta outline-none text-sm font-medium text-cocoa transition-all"
           />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="block text-sm font-semibold text-cocoa">Inventory Quantity</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-cocoa/50">Inventory Quantity</label>
             <input 
               type="number" 
               name="inventoryQuantity"
               value={formData.inventoryQuantity}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-xl border border-cocoa/20 focus:ring-1 focus:ring-terracotta outline-none"
+              className="w-full px-4 py-3 bg-ivory/50 rounded-xl border border-cocoa/10 focus:ring-1 focus:ring-terracotta focus:border-terracotta outline-none text-sm font-medium text-cocoa transition-all"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-semibold text-cocoa">Low Stock Alert Level</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-cocoa/50">Low Stock Alert Level</label>
             <input 
               type="number" 
               name="lowStockAlert"
               value={formData.lowStockAlert}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 rounded-xl border border-cocoa/20 focus:ring-1 focus:ring-terracotta outline-none"
+              className="w-full px-4 py-3 bg-ivory/50 rounded-xl border border-cocoa/10 focus:ring-1 focus:ring-terracotta focus:border-terracotta outline-none text-sm font-medium text-cocoa transition-all"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <label className="block text-sm font-semibold text-cocoa">Image URL</label>
+          <label className="block text-[10px] font-bold uppercase tracking-widest text-cocoa/50">Image URL</label>
           <input 
             type="url" 
             name="imageUrl"
             value={formData.imageUrl}
             onChange={handleChange}
-            className="w-full px-4 py-2 rounded-xl border border-cocoa/20 focus:ring-1 focus:ring-terracotta outline-none"
+            className="w-full px-4 py-3 bg-ivory/50 rounded-xl border border-cocoa/10 focus:ring-1 focus:ring-terracotta focus:border-terracotta outline-none text-sm font-medium text-cocoa transition-all"
             placeholder="https://example.com/image.jpg"
           />
         </div>
 
-        <div className="flex items-center gap-3 py-2">
+        <div className="flex items-center gap-3 py-4 p-4 bg-ivory/30 rounded-xl border border-cocoa/5">
           <input 
             type="checkbox" 
             id="isActive"
             name="isActive"
             checked={formData.isActive}
             onChange={handleChange}
-            className="w-5 h-5 rounded border-cocoa/20 text-terracotta focus:ring-terracotta"
+            className="w-5 h-5 rounded border-cocoa/20 text-terracotta focus:ring-terracotta bg-white"
           />
-          <label htmlFor="isActive" className="text-sm font-semibold text-cocoa">
+          <label htmlFor="isActive" className="text-sm font-semibold text-cocoa cursor-pointer select-none">
             Product is Active (visible to customers)
           </label>
         </div>
 
-        <div className="pt-6 flex justify-end">
+        <div className="pt-8 border-t border-cocoa/5 flex justify-end">
           <button 
             type="submit" 
             disabled={saving}
-            className="flex items-center gap-2 bg-cocoa text-ivory px-6 py-3 rounded-xl font-bold uppercase tracking-widest hover:bg-terracotta transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 bg-cocoa text-ivory px-8 py-3 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-terracotta transition-colors disabled:opacity-50 shadow-sm"
           >
             {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
             {saving ? 'Saving...' : 'Save Changes'}

@@ -102,9 +102,9 @@ export default function AdminProducts() {
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <button
             type="button"
-            className="inline-flex items-center rounded-md bg-terracotta px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-terracotta/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
+            className="inline-flex items-center rounded-xl bg-cocoa px-5 py-2.5 text-sm font-bold text-ivory shadow-sm hover:bg-terracotta focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta uppercase tracking-widest transition-colors"
           >
-            <Plus className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
+            <Plus className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
             Add Product
           </button>
         </div>
@@ -113,61 +113,68 @@ export default function AdminProducts() {
       <div className="mt-8 flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-cocoa/10">
-                <thead className="bg-ivory/50">
+            <div className="overflow-hidden shadow-sm ring-1 ring-cocoa/5 rounded-3xl bg-white">
+              <table className="min-w-full divide-y divide-cocoa/5">
+                <thead className="bg-cocoa/[0.02]">
                   <tr>
-                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-cocoa sm:pl-6">Name</th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-cocoa">SKU</th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-cocoa">Price</th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-cocoa">Status</th>
-                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                      <span className="sr-only">Actions</span>
+                    <th scope="col" className="py-4 pl-6 pr-3 text-left text-xs font-bold uppercase tracking-widest text-cocoa/50">Name</th>
+                    <th scope="col" className="px-3 py-4 text-left text-xs font-bold uppercase tracking-widest text-cocoa/50">SKU</th>
+                    <th scope="col" className="px-3 py-4 text-left text-xs font-bold uppercase tracking-widest text-cocoa/50">Price</th>
+                    <th scope="col" className="px-3 py-4 text-left text-xs font-bold uppercase tracking-widest text-cocoa/50">Status</th>
+                    <th scope="col" className="relative py-4 pl-3 pr-6 text-right text-xs font-bold uppercase tracking-widest text-cocoa/50">
+                      Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-cocoa/10 bg-white">
+                <tbody className="divide-y divide-cocoa/5 bg-white">
                   {products.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-center text-cocoa/60 sm:pl-6">
+                      <td colSpan={5} className="whitespace-nowrap py-12 text-sm text-center text-cocoa/50">
                         No products found.
                       </td>
                     </tr>
                   ) : (
                     products.map((product) => (
-                      <tr key={product.id}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-cocoa sm:pl-6">
+                      <tr key={product.id} className="hover:bg-cocoa/[0.01] transition-colors">
+                        <td className="whitespace-nowrap py-5 pl-6 pr-3 text-sm font-bold text-cocoa">
                           {product.name}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-cocoa/60">{product.sku}</td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-cocoa/60">GH₵ {product.price.toFixed(2)}</td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-cocoa/60">
-                          <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${
-                            product.isActive ? 'bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20' : 'bg-red-50 text-red-700 ring-1 ring-inset ring-red-600/10'
+                        <td className="whitespace-nowrap px-3 py-5 text-sm font-medium text-cocoa/70">{product.sku}</td>
+                        <td className="whitespace-nowrap px-3 py-5 text-sm font-medium text-cocoa/70">GH₵ {product.price.toFixed(2)}</td>
+                        <td className="whitespace-nowrap px-3 py-5 text-sm">
+                          <span className={`inline-flex items-center rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-widest ${
+                            product.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                           }`}>
                             {product.isActive ? 'Active' : 'Draft'}
                           </span>
                         </td>
-                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-3">
-                          <button 
-                            onClick={() => setQrProduct(product)}
-                            className="text-cocoa/70 hover:text-cocoa transition-colors"
-                            title="Generate QR Code"
-                          >
-                            <span className="sr-only">Generate QR Code</span>
-                            <QrCode className="h-4 w-4" />
-                          </button>
-                          <Link href={`/admin/products/${product.slug}`} className="text-terracotta hover:text-cocoa transition-colors">
-                            <span className="sr-only">Edit</span>
-                            <Pencil className="h-4 w-4" />
-                          </Link>
-                          <button 
-                            onClick={() => handleDelete(product.id)}
-                            className="text-red-600 hover:text-red-900 transition-colors"
-                          >
-                            <span className="sr-only">Delete</span>
-                            <Trash2 className="h-4 w-4" />
-                          </button>
+                        <td className="whitespace-nowrap py-5 pl-3 pr-6">
+                          <div className="flex items-center justify-end gap-4">
+                            <button 
+                              onClick={() => setQrProduct(product)}
+                              className="text-cocoa/50 hover:text-cocoa hover:bg-cocoa/5 p-2 rounded-lg transition-all"
+                              title="Generate QR Code"
+                            >
+                              <span className="sr-only">Generate QR Code</span>
+                              <QrCode className="h-5 w-5" />
+                            </button>
+                            <Link 
+                              href={`/admin/products/${product.slug}`} 
+                              className="text-terracotta hover:bg-terracotta/10 p-2 rounded-lg transition-all"
+                              title="Edit Product"
+                            >
+                              <span className="sr-only">Edit</span>
+                              <Pencil className="h-5 w-5" />
+                            </Link>
+                            <button 
+                              onClick={() => handleDelete(product.id)}
+                              className="text-red-500 hover:bg-red-50 p-2 rounded-lg transition-all"
+                              title="Delete Product"
+                            >
+                              <span className="sr-only">Delete</span>
+                              <Trash2 className="h-5 w-5" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))
