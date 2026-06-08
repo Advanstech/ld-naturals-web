@@ -1,19 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { fetchApi } from '@/lib/api';
 import { ArrowLeft, Save, Loader2, Plus, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 
-export default function EditProductPage() {
+export default function NewProductPage() {
   const router = useRouter();
-  const { slug } = useParams();
   
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [productId, setProductId] = useState<string>('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -26,41 +23,6 @@ export default function EditProductPage() {
     lowStockAlert: 10,
     imageUrls: [''],
   });
-
-  useEffect(() => {
-    const loadProduct = async () => {
-      try {
-        const product = await fetchApi(`/products/${slug}`);
-        setProductId(product.id);
-        
-        let imageUrls = [''];
-        if (product.images && product.images.length > 0) {
-          // Sort to put primary image first
-          const sortedImages = [...product.images].sort((a: any, b: any) => 
-            (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
-          );
-          imageUrls = sortedImages.map((img: any) => img.url);
-        }
-
-        setFormData({
-          name: product.name || '',
-          slug: product.slug || '',
-          sku: product.sku || '',
-          price: product.price || 0,
-          description: product.description || '',
-          isActive: product.isActive ?? true,
-          inventoryQuantity: product.inventory?.quantity || 0,
-          lowStockAlert: product.inventory?.lowStockAlert || 10,
-          imageUrls: imageUrls,
-        });
-      } catch (err: any) {
-        setError(err.message || 'Failed to load product');
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadProduct();
-  }, [slug]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -100,29 +62,21 @@ export default function EditProductPage() {
     setError(null);
 
     try {
-      await fetchApi(`/products/${productId}`, {
-        method: 'PATCH',
+      await fetchApi(`/products`, {
+        method: 'POST',
         body: JSON.stringify({
           ...formData,
           imageUrls: formData.imageUrls.filter(url => url.trim() !== '')
         }),
       });
-      alert('Product updated successfully!');
+      alert('Product created successfully!');
       router.push('/admin/products');
     } catch (err: any) {
-      setError(err.message || 'Failed to update product');
+      setError(err.message || 'Failed to create product');
     } finally {
       setSaving(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-terracotta" />
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-500">
@@ -131,8 +85,8 @@ export default function EditProductPage() {
           <ArrowLeft className="w-5 h-5 text-cocoa" />
         </Link>
         <div>
-          <h1 className="text-3xl font-cormorant font-bold text-cocoa">Edit Product</h1>
-          <p className="text-cocoa/60 mt-1">Update product details, pricing, and inventory.</p>
+          <h1 className="text-3xl font-cormorant font-bold text-cocoa">Add Product</h1>
+          <p className="text-cocoa/60 mt-1">Create a new product for your store.</p>
         </div>
       </div>
 
@@ -283,7 +237,7 @@ export default function EditProductPage() {
             className="flex items-center gap-2 bg-cocoa text-ivory px-8 py-3 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-terracotta transition-colors disabled:opacity-50 shadow-sm"
           >
             {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
-            {saving ? 'Saving...' : 'Save Changes'}
+            {saving ? 'Saving...' : 'Save Product'}
           </button>
         </div>
       </form>

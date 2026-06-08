@@ -13,6 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 const products = [
   {
     id: "scented",
+    slug: "cocoa-black-soap-scented",
     label: "Signature Scented",
     tag: "Aromatic Ritual • 100g",
     name: "Cocoa Butter Black Soap",
@@ -22,9 +23,11 @@ const products = [
     badges: ["Aromatic", "Glow-Boosting", "Hydrating", "All Skin Types"],
     image: "/scented-box.jpeg",
     bg: "#f4ecd8",
+    price: 120,
   },
   {
     id: "unscented",
+    slug: "cocoa-black-soap-unscented",
     label: "Fragrance-Free",
     tag: "Pure Calm • 100g",
     name: "Cocoa Butter Black Soap",
@@ -34,6 +37,35 @@ const products = [
     badges: ["Sensitive-Safe", "Clarifying", "Barrier-Care", "Unscented"],
     image: "/unscented.jpeg",
     bg: "#e9dfc2",
+    price: 120,
+  },
+  {
+    id: "carrot-oil",
+    slug: "carrot-oil-black-soap",
+    label: "Carrot Oil",
+    tag: "Nourish Daily • 100g",
+    name: "Carrot Oil Black Soap",
+    accent: "Nature's Touch",
+    description:
+      "Rich with natural carrot oil to nourish your skin daily. Packed with antioxidants, this soap naturally exfoliates, moisturizes, and leaves your skin glowing with an unmistakable vitality.",
+    badges: ["Exfoliates", "Moisturizes", "Glow-Boosting", "All Skin Types"],
+    image: "/new-carrot-oil.jpg",
+    bg: "#f6e4cc",
+    price: 130,
+  },
+  {
+    id: "customized",
+    slug: "customized-labelled-black-soap",
+    label: "Customized Labelled",
+    tag: "Your Brand • 100g",
+    name: "Personalized Black Soap",
+    accent: "White Label & Events",
+    description:
+      "Perfect for gifting, special events, or starting your own brand. Get our premium Ghanaian cocoa butter black soap with customized labeling tailored to your specific aesthetic.",
+    badges: ["Customizable", "Bulk Orders", "White Label", "Premium Gift"],
+    image: "/customized.png",
+    bg: "#e0e6d9",
+    price: 150,
   },
 ];
 
@@ -83,10 +115,10 @@ export default function ProductsPage() {
         <div className="relative mx-auto max-w-4xl text-center">
           <p className="mb-3 text-xs uppercase tracking-[0.4em] text-terracotta">The Collection</p>
           <h1 className="font-cormorant text-6xl italic leading-tight md:text-8xl">
-            The Ritual Pair
+            The Ritual Collection
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-cocoa/65">
-            Two handcrafted expressions of the same daily cocoa butter cleansing ritual — choose the one that speaks to your skin.
+            Four handcrafted expressions of our daily cocoa butter cleansing ritual — choose the ones that speak to your skin and tell your story.
           </p>
         </div>
       </section>
@@ -113,14 +145,16 @@ export default function ProductsPage() {
               <div className={`flex flex-col md:flex-row md:items-stretch ${idx % 2 !== 0 ? "md:flex-row-reverse" : ""}`}>
                 {/* Image */}
                 <div className="relative h-80 w-full overflow-hidden md:h-auto md:w-1/2">
-                  <Image
-                    src={p.image}
-                    alt={`${p.name} — ${p.label}`}
-                    fill
-                    className="object-cover transition duration-700 group-hover:scale-[1.04]"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute left-5 top-5 rounded-full border border-gold/45 bg-cocoa/55 px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-gold backdrop-blur-md">
+                  <Link href={`/products/${p.slug}`} className="absolute inset-0 block h-full w-full">
+                    <Image
+                      src={p.image}
+                      alt={`${p.name} — ${p.label}`}
+                      fill
+                      className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </Link>
+                  <div className="absolute left-5 top-5 rounded-full border border-gold/45 bg-cocoa/55 px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-gold backdrop-blur-md pointer-events-none">
                     {p.label}
                   </div>
                 </div>
@@ -129,7 +163,11 @@ export default function ProductsPage() {
                 <div className="flex flex-1 flex-col justify-between p-10">
                   <div>
                     <p className="text-[0.65rem] uppercase tracking-[0.28em] text-cocoa/55">{p.tag}</p>
-                    <h2 className="mt-2 font-cormorant text-4xl leading-tight md:text-5xl">{p.name}</h2>
+                    <h2 className="mt-2 font-cormorant text-4xl leading-tight md:text-5xl">
+                      <Link href={`/products/${p.slug}`} className="hover:text-terracotta transition-colors">
+                        {p.name}
+                      </Link>
+                    </h2>
                     <p className="mt-1 text-sm font-semibold uppercase tracking-[0.16em] text-terracotta">{p.accent}</p>
                     <p className="mt-5 text-sm leading-7 text-cocoa/75">{p.description}</p>
                     <div className="mt-6 flex flex-wrap gap-2">
@@ -145,7 +183,7 @@ export default function ProductsPage() {
                       {[
                         ["Weight", "100g"],
                         ["Skin Types", "Dry · Oily · Combination · Sensitive"],
-                        ["Price", "GH₵ 120.00"],
+                        ["Price", `GH₵ ${p.price}.00`],
                         ["Origin", "Handcrafted in Ghana"],
                       ].map(([k, v]) => (
                         <div key={k} className="flex justify-between">
@@ -158,7 +196,7 @@ export default function ProductsPage() {
                       href="/checkout"
                       className="inline-flex w-full items-center justify-center rounded-full border border-gold/45 bg-cocoa px-8 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-gold transition hover:bg-gold hover:text-cocoa"
                     >
-                      Buy Now — GH₵ 120
+                      Buy Now — GH₵ {p.price}
                     </Link>
                   </div>
                 </div>

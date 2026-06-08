@@ -21,8 +21,8 @@ const products = [
     accent: "Radiance & Aroma",
     description:
       "Infused with natural botanical aromatic notes for a luxurious daily cleansing ritual. Rich Ghanaian cocoa butter cushions the skin, leaving it smooth, luminous, and deeply nourished.",
-    badges: ["Aromatic", "Glow-Boosting", "Hydrating"],
-    image: "/product-scented.jpeg",
+    badges: ["Aromatic", "Glow-Boosting", "Hydrating", "All Skin Types"],
+    image: "/scented-box.jpeg",
     bg: "#f4ecd8",
     statColor: "text-terracotta",
     price: 120,
@@ -42,6 +42,38 @@ const products = [
     bg: "#e9dfc2",
     statColor: "text-[#8b552f]",
     price: 120,
+  },
+  {
+    id: "carrot-oil-black-soap",
+    slug: "carrot-oil-black-soap",
+    label: "Carrot Oil",
+    tag: "Nourish Daily • 100g",
+    name: "Carrot Oil",
+    nameSub: "Black Soap",
+    accent: "Nature's Touch",
+    description:
+      "Rich with natural carrot oil to nourish your skin daily. Packed with antioxidants, this soap naturally exfoliates, moisturizes, and leaves your skin glowing with an unmistakable vitality.",
+    badges: ["Exfoliates", "Moisturizes", "Glow-Boosting", "All Skin Types"],
+    image: "/new-carrot-oil.jpg",
+    bg: "#f6e4cc",
+    statColor: "text-[#c2611a]",
+    price: 130,
+  },
+  {
+    id: "customized-labelled-black-soap",
+    slug: "customized-labelled-black-soap",
+    label: "Customized Labelled",
+    tag: "Your Brand • 100g",
+    name: "Personalized",
+    nameSub: "Black Soap",
+    accent: "White Label & Events",
+    description:
+      "Perfect for gifting, special events, or starting your own brand. Get our premium Ghanaian cocoa butter black soap with customized labeling tailored to your specific aesthetic.",
+    badges: ["Customizable", "Bulk Orders", "White Label"],
+    image: "/customized.png",
+    bg: "#e0e6d9",
+    statColor: "text-[#4d6658]",
+    price: 150,
   },
 ];
 
@@ -138,10 +170,10 @@ export default function ProductShowcase() {
         <div className="ps-heading mb-16 text-center">
           <p className="mb-3 text-xs uppercase tracking-[0.38em] text-terracotta">Our Products</p>
           <h2 className="font-cormorant text-5xl italic md:text-7xl">
-            The Ritual Pair
+            The Ritual Collection
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-cocoa/65">
-            Two expressions of the same daily ritual — both handcrafted from Ghanaian cocoa butter, both designed to cleanse, nourish, and glow.
+            Four expressions of our daily cleansing ritual — handcrafted from Ghanaian cocoa butter and nature&apos;s finest ingredients, designed to nourish, glow, and tell your story.
           </p>
         </div>
 
@@ -155,7 +187,7 @@ export default function ProductShowcase() {
           ))}
         </div>
 
-        {/* Dual product cards */}
+        {/* Collection product cards */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           {products.map((p) => (
             <article
@@ -168,7 +200,7 @@ export default function ProductShowcase() {
 
               {/* Product image */}
               <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden">
-                <div className="ps-img absolute inset-0 h-[115%] w-full">
+                <Link href={`/products/${p.slug}`} className="ps-img absolute inset-0 h-[115%] w-full block">
                   <Image
                     src={p.image}
                     alt={`${p.name} ${p.nameSub} — ${p.label}`}
@@ -176,7 +208,7 @@ export default function ProductShowcase() {
                     className="object-cover transition duration-700 group-hover:scale-[1.04]"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
-                </div>
+                </Link>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
                 {/* Variant pill */}
                 <div className="absolute left-6 top-6 rounded-full border border-gold/45 bg-cocoa/55 px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-gold backdrop-blur-md">
@@ -189,9 +221,11 @@ export default function ProductShowcase() {
                 <div>
                   <p className="text-[0.65rem] uppercase tracking-[0.28em] text-cocoa/55">{p.tag}</p>
                   <h3 className="mt-3 font-cormorant text-4xl leading-tight md:text-5xl lg:text-5xl xl:text-6xl">
-                    {p.name}
-                    <br />
-                    <span className={`italic ${p.statColor}`}>{p.nameSub}</span>
+                    <Link href={`/products/${p.slug}`} className="hover:opacity-80 transition-opacity">
+                      {p.name}
+                      <br />
+                      <span className={`italic ${p.statColor}`}>{p.nameSub}</span>
+                    </Link>
                   </h3>
                   <p className={`mt-2 text-xs font-semibold uppercase tracking-[0.16em] ${p.statColor}`}>
                     {p.accent}
@@ -217,7 +251,7 @@ export default function ProductShowcase() {
                     {[
                       ["Weight", "100g"],
                       ["Skin Types", "Dry · Oily · Combination · Sensitive"],
-                      ["Price", "GH₵ 120.00"],
+                      ["Price", `GH₵ ${p.price}.00`],
                       ["Origin", "Handcrafted in Ghana"],
                     ].map(([k, v]) => (
                       <div key={k} className="flex justify-between">

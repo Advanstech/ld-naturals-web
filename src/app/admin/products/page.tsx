@@ -101,13 +101,13 @@ export default function AdminProducts() {
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <button
-            type="button"
+          <Link
+            href="/admin/products/new"
             className="inline-flex items-center rounded-xl bg-cocoa px-5 py-2.5 text-sm font-bold text-ivory shadow-sm hover:bg-terracotta focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta uppercase tracking-widest transition-colors"
           >
             <Plus className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
             Add Product
-          </button>
+          </Link>
         </div>
       </div>
       
