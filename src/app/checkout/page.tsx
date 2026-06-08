@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { fetchApi } from "@/lib/api";
 
 export default function CheckoutPage() {
   const { items, totalPrice, updateQuantity, removeFromCart, clearCart } = useCart();
@@ -38,16 +39,47 @@ export default function CheckoutPage() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      if (session) {
+        loadProfileData();
+      }
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      if (session) {
+        loadProfileData();
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const loadProfileData = async () => {
+    try {
+      const profileData = await fetchApi('/auth/me');
+      const addresses = await fetchApi('/users/me/addresses');
+
+      if (profileData) {
+        const defaultFirstName = profileData.firstName || '';
+        const defaultLastName = profileData.lastName || '';
+        const defaultFullName = [defaultFirstName, defaultLastName].filter(Boolean).join(' ');
+
+        if (defaultFullName) form.setFieldValue('fullName', defaultFullName);
+        if (profileData.phone) form.setFieldValue('phoneNumber', profileData.phone);
+      }
+
+      if (addresses && addresses.length > 0) {
+        const defaultAddr = addresses.find((a: any) => a.isDefault) || addresses[0];
+        if (defaultAddr.street) form.setFieldValue('address', defaultAddr.street);
+        if (defaultAddr.city) form.setFieldValue('city', defaultAddr.city);
+        if (defaultAddr.country) setCountryCode(defaultAddr.country);
+      }
+    } catch (e) {
+      console.error("Failed to load profile data for checkout", e);
+    }
+  };
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,6 +148,7 @@ export default function CheckoutPage() {
               email: value.email,
               firstName: value.fullName.split(" ")[0] || "",
               lastName: value.fullName.split(" ").slice(1).join(" ") || "",
+              phone: value.phoneNumber,
             },
             shippingAddr: {
               street: value.address,

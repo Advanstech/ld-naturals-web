@@ -236,11 +236,11 @@ export default function EditProductPage() {
           {formData.imageUrls.map((url, index) => (
             <div key={index} className="flex items-center gap-3">
               <input 
-                type="url" 
+                type="text" 
                 value={url}
                 onChange={(e) => handleImageUrlChange(index, e.target.value)}
                 className="w-full px-4 py-3 bg-ivory/50 rounded-xl border border-cocoa/10 focus:ring-1 focus:ring-terracotta focus:border-terracotta outline-none text-sm font-medium text-cocoa transition-all"
-                placeholder="https://example.com/image.jpg"
+                placeholder="/image.jpg or https://example.com/image.jpg"
               />
               <button
                 type="button"
