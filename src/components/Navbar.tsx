@@ -90,11 +90,18 @@ export default function Navbar() {
               <button 
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="hover:opacity-70 transition-opacity flex items-center gap-2"
+                aria-label="User Profile"
               >
-                <User className="w-5 h-5" />
+                <div className="relative">
+                  <User className="w-5 h-5" />
+                  <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500 border-[1px] border-cocoa"></span>
+                  </span>
+                </div>
               </button>
             ) : (
-              <Link href="/login" className="hover:opacity-70 transition-opacity hidden md:block">
+              <Link href="/login" className="hover:opacity-70 transition-opacity hidden md:block" aria-label="Login">
                 <User className="w-5 h-5" />
               </Link>
             )}

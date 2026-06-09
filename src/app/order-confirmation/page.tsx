@@ -153,9 +153,20 @@ function OrderConfirmationContent() {
             </div>
           </div>
 
-          <Link href="/products" className="inline-flex items-center gap-2 mt-8 text-xs font-semibold uppercase tracking-widest text-terracotta hover:text-cocoa transition-colors">
-            Continue Shopping <ArrowRight className="w-4 h-4" />
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 sm:items-center mt-8">
+            <Link 
+              href={`/track?id=${order.orderNumber}&email=${order.guestEmail || order.user?.email || ''}`} 
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-cocoa px-6 py-4 text-xs font-semibold uppercase tracking-widest text-gold shadow-lg hover:bg-gold hover:text-cocoa transition-all"
+            >
+              Track Your Order <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link 
+              href="/products" 
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-cocoa/30 px-6 py-4 text-xs font-semibold uppercase tracking-widest text-cocoa hover:border-cocoa hover:bg-cocoa/5 transition-all"
+            >
+              Continue Shopping
+            </Link>
+          </div>
         </div>
       </div>
     </div>

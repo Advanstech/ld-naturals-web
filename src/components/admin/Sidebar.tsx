@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ShoppingBag, ShoppingCart, Users, LogOut, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, ShoppingCart, Users, LogOut, ShieldCheck, Globe } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 
@@ -50,7 +50,14 @@ export default function Sidebar() {
           );
         })}
       </nav>
-      <div className="border-t border-ivory/10 p-4">
+      <div className="border-t border-ivory/10 p-4 space-y-2">
+        <Link
+          href="/"
+          className="flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md text-ivory/80 hover:bg-terracotta/50 hover:text-white transition-colors"
+        >
+          <Globe className="mr-3 h-5 w-5 text-ivory/60" aria-hidden="true" />
+          Go to Store
+        </Link>
         <button
           onClick={handleLogout}
           className="flex w-full items-center px-3 py-2.5 text-sm font-medium rounded-md text-ivory/80 hover:bg-terracotta/50 hover:text-white transition-colors"
