@@ -192,12 +192,20 @@ export default function ProductsPage() {
                         </div>
                       ))}
                     </div>
-                    <Link
-                      href="/checkout"
-                      className="inline-flex w-full items-center justify-center rounded-full border border-gold/45 bg-cocoa px-8 py-4 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-gold transition hover:bg-gold hover:text-cocoa"
-                    >
-                      Buy Now — GH₵ {p.price}
-                    </Link>
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                      <Link
+                        href={`/products/${p.slug}`}
+                        className="inline-flex flex-1 items-center justify-center rounded-full border border-cocoa/30 px-6 py-3 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-cocoa transition hover:border-cocoa hover:bg-cocoa hover:text-ivory"
+                      >
+                        View Details
+                      </Link>
+                      <Link
+                        href="/checkout"
+                        className="inline-flex flex-1 items-center justify-center rounded-full border border-gold/45 bg-cocoa px-6 py-3 text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-gold transition hover:bg-gold hover:text-cocoa"
+                      >
+                        Buy Now — GH₵ {p.price}
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

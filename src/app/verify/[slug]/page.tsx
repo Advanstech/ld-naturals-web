@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { Star, CheckCircle2, Phone, MessageSquare, User, Loader2, Sparkles, Globe } from 'lucide-react';
+import { Star, CheckCircle2, Phone, MessageSquare, User, Mail, Loader2, Sparkles, Globe } from 'lucide-react';
 import { fetchApi } from '@/lib/api';
 import localCountries from '@/lib/countries.json';
 
@@ -20,6 +20,7 @@ export default function VerifyPage() {
   const [hoveredRating, setHoveredRating] = useState(0);
   const [comment, setComment] = useState('');
   const [reviewerName, setReviewerName] = useState('');
+  const [reviewerEmail, setReviewerEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countryCode, setCountryCode] = useState('GH'); // Default ISO Code for Ghana
   const [countries, setCountries] = useState<any[]>(localCountries);
@@ -46,12 +47,14 @@ export default function VerifyPage() {
   // Load persisted form data from localStorage
   useEffect(() => {
     const savedName = localStorage.getItem('verify_name');
+    const savedEmail = localStorage.getItem('verify_email');
     const savedPhone = localStorage.getItem('verify_phone');
     const savedCode = localStorage.getItem('verify_code');
     const savedComment = localStorage.getItem('verify_comment');
     const savedRating = localStorage.getItem('verify_rating');
 
     if (savedName) setReviewerName(savedName);
+    if (savedEmail) setReviewerEmail(savedEmail);
     if (savedPhone) setPhoneNumber(savedPhone);
     if (savedCode) setCountryCode(savedCode);
     if (savedComment) setComment(savedComment);
@@ -61,11 +64,12 @@ export default function VerifyPage() {
   // Save to localStorage when form values change
   useEffect(() => {
     localStorage.setItem('verify_name', reviewerName);
+    localStorage.setItem('verify_email', reviewerEmail);
     localStorage.setItem('verify_phone', phoneNumber);
     localStorage.setItem('verify_code', countryCode);
     localStorage.setItem('verify_comment', comment);
     localStorage.setItem('verify_rating', rating.toString());
-  }, [reviewerName, phoneNumber, countryCode, comment, rating]);
+  }, [reviewerName, reviewerEmail, phoneNumber, countryCode, comment, rating]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,6 +88,7 @@ export default function VerifyPage() {
           rating,
           comment,
           reviewerName,
+          reviewerEmail,
         }),
       });
 
@@ -222,6 +227,21 @@ export default function VerifyPage() {
                 value={reviewerName}
                 onChange={(e) => setReviewerName(e.target.value)}
                 placeholder="Jane Doe"
+                className="w-full px-4 py-3 rounded-xl border border-cocoa/20 focus:border-terracotta focus:ring-1 focus:ring-terracotta outline-none transition-all bg-ivory/50"
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-medium text-cocoa mb-2 flex items-center gap-2">
+                <Mail className="w-4 h-4 text-terracotta" />
+                Email for Receipt (Optional)
+              </label>
+              <input
+                type="email"
+                value={reviewerEmail}
+                onChange={(e) => setReviewerEmail(e.target.value)}
+                placeholder="jane@example.com"
                 className="w-full px-4 py-3 rounded-xl border border-cocoa/20 focus:border-terracotta focus:ring-1 focus:ring-terracotta outline-none transition-all bg-ivory/50"
               />
             </div>

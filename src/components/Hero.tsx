@@ -72,7 +72,7 @@ export default function Hero() {
           </Link>
         </div>
 
-        <div className="mt-14 grid w-full max-w-3xl grid-cols-3 gap-3 text-left text-ivory/80">
+        <div className="mt-14 grid w-full max-w-3xl grid-cols-1 sm:grid-cols-3 gap-3 text-center sm:text-left text-ivory/80">
           {["100% Natural", "Cocoa Butter Rich", "Made for Daily Glow"].map((item) => (
             <div key={item} className="rounded-2xl border border-ivory/15 bg-cocoa/35 p-4 text-[0.65rem] font-semibold uppercase tracking-[0.18em] backdrop-blur-md">
               {item}

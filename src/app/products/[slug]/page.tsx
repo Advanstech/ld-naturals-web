@@ -1,84 +1,107 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { fetchApi } from '@/lib/api';
-import { useCart } from '@/context/CartContext';
-import Image from 'next/image';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import { ArrowLeft, Loader2, Minus, Plus, ShoppingBag } from 'lucide-react';
-import Link from 'next/link';
+import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useCart } from "@/context/CartContext";
+import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { ArrowLeft, Minus, Plus, ShoppingBag } from "lucide-react";
+import Link from "next/link";
+
+const PRODUCTS: Record<string, {
+  id: string;
+  slug: string;
+  name: string;
+  subtitle: string;
+  price: number;
+  image: string;
+  images: string[];
+  description: string;
+  details: string[];
+  sku: string;
+  inStock: boolean;
+  badge: string;
+  accentColor: string;
+}> = {
+  "cocoa-black-soap-scented": {
+    id: "scented",
+    slug: "cocoa-black-soap-scented",
+    name: "Cocoa Butter Black Soap",
+    subtitle: "Signature Scented",
+    price: 45,
+    image: "/product-scented.jpeg",
+    images: ["/product-scented.jpeg", "/product-unscented.jpeg"],
+    description:
+      "Infused with natural botanical aromatic notes for a luxurious daily cleansing ritual. Rich Ghanaian cocoa butter cushions the skin, leaving it smooth, luminous, and deeply nourished.",
+    details: [
+      "100% natural ingredients",
+      "Traditional African black soap base",
+      "Raw Ghanaian cocoa butter",
+      "Aromatic botanical essences",
+      "100g artisan bar",
+    ],
+    sku: "LDN-CBBS-SC-100",
+    inStock: true,
+    badge: "Aromatic Ritual",
+    accentColor: "#b8865f",
+  },
+  "cocoa-black-soap-unscented": {
+    id: "unscented",
+    slug: "cocoa-black-soap-unscented",
+    name: "Cocoa Butter Black Soap",
+    subtitle: "Fragrance-Free",
+    price: 45,
+    image: "/product-unscented.jpeg",
+    images: ["/product-unscented.jpeg", "/product-scented.jpeg"],
+    description:
+      "A gentle, fragrance-free daily bar designed for sensitive and melanin-rich skin. Maintains moisture barrier health while the traditional black soap base clarifies and exfoliates.",
+    details: [
+      "100% natural ingredients",
+      "Traditional African black soap base",
+      "Raw Ghanaian cocoa butter",
+      "No added fragrance or essential oils",
+      "100g artisan bar",
+    ],
+    sku: "LDN-CBBS-UN-100",
+    inStock: true,
+    badge: "Pure Calm",
+    accentColor: "#8b552f",
+  },
+};
+
+const ALIASES: Record<string, string> = {
+  scented: "cocoa-black-soap-scented",
+  unscented: "cocoa-black-soap-unscented",
+  "cocoa-butter-black-soap-scented": "cocoa-black-soap-scented",
+  "cocoa-butter-black-soap-unscented": "cocoa-black-soap-unscented",
+};
 
 export default function ProductDetailedPage() {
-  const { slug } = useParams();
+  const params = useParams();
   const router = useRouter();
   const { addToCart } = useCart();
+  const rawSlug = typeof params.slug === "string" ? params.slug : "";
+  const resolvedSlug = ALIASES[rawSlug] || rawSlug;
+  const product = PRODUCTS[resolvedSlug];
 
-  const [product, setProduct] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [activeImage, setActiveImage] = useState<string>('');
+  const [activeImage, setActiveImage] = useState<string>(product?.image || "");
 
-  useEffect(() => {
-    const loadProduct = async () => {
-      try {
-        const data = await fetchApi(`/products/${slug}`);
-        setProduct(data);
-        if (data.images && data.images.length > 0) {
-          // Sort to put primary image first
-          const sortedImages = [...data.images].sort((a: any, b: any) => 
-            (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0)
-          );
-          setActiveImage(sortedImages[0].url);
-        }
-      } catch (err: any) {
-        setError(err.message || 'Failed to load product');
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadProduct();
-  }, [slug]);
-
-  const handleAddToCart = () => {
-    if (!product) return;
-    addToCart({
-      id: product.id,
-      slug: product.slug,
-      name: product.name,
-      price: product.price,
-      quantity,
-      imageUrl: activeImage || '/placeholder.png' // Use the primary image
-    });
-  };
-
-  const handleBuyNow = () => {
-    handleAddToCart();
-    router.push('/checkout');
-  };
-
-  if (loading) {
+  if (!product) {
     return (
-      <main className="min-h-screen bg-ivory text-cocoa flex flex-col">
+      <main className="relative flex min-h-screen flex-col bg-ivory text-cocoa">
         <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <Loader2 className="w-12 h-12 animate-spin text-terracotta" />
-        </div>
-        <Footer />
-      </main>
-    );
-  }
-
-  if (error || !product) {
-    return (
-      <main className="min-h-screen bg-ivory text-cocoa flex flex-col">
-        <Navbar />
-        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-          <h2 className="text-4xl font-cormorant italic mb-4">Product Not Found</h2>
-          <p className="text-cocoa/60 mb-8 max-w-md">{error || 'The product you are looking for does not exist or has been removed.'}</p>
-          <Link href="/products" className="rounded-full border border-cocoa/30 px-8 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-cocoa transition hover:bg-cocoa hover:text-ivory">
+        <div className="flex flex-1 flex-col items-center justify-center px-6 pb-24 pt-36 text-center">
+          <p className="mb-3 text-xs uppercase tracking-[0.35em] text-terracotta">404</p>
+          <h2 className="font-cormorant text-5xl italic md:text-6xl">Product Not Found</h2>
+          <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-cocoa/60">
+            We couldn&apos;t find a product at <span className="font-semibold">/products/{rawSlug}</span>. It may not exist or has been removed.
+          </p>
+          <Link
+            href="/products"
+            className="mt-8 inline-flex rounded-full border border-cocoa/30 px-8 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-cocoa transition hover:bg-cocoa hover:text-ivory"
+          >
             Back to Collection
           </Link>
         </div>
@@ -87,125 +110,153 @@ export default function ProductDetailedPage() {
     );
   }
 
-  const images = product.images && product.images.length > 0 
-    ? [...product.images].sort((a: any, b: any) => (b.isPrimary ? 1 : 0) - (a.isPrimary ? 1 : 0))
-    : [];
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      slug: product.slug,
+      name: `${product.name} — ${product.subtitle}`,
+      price: product.price,
+      quantity,
+      imageUrl: activeImage,
+    });
+  };
+
+  const handleBuyNow = () => {
+    handleAddToCart();
+    router.push("/checkout");
+  };
 
   return (
-    <main className="bg-ivory text-cocoa min-h-screen flex flex-col">
+    <main className="relative flex min-h-screen flex-col bg-ivory text-cocoa">
       <Navbar />
-      
-      <div className="flex-1 max-w-7xl mx-auto w-full px-6 py-24 md:py-32">
-        <Link href="/products" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-cocoa/60 hover:text-terracotta transition-colors mb-10">
-          <ArrowLeft className="w-4 h-4" />
+
+      <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-28 md:py-36">
+        <Link
+          href="/products"
+          className="mb-10 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-cocoa/60 transition hover:text-terracotta"
+        >
+          <ArrowLeft className="h-4 w-4" />
           Back to Collection
         </Link>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Image Gallery */}
-          <div className="space-y-6">
-            <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden bg-cocoa/5 shadow-lg border border-cocoa/10 group">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_70%)]" />
-              {activeImage ? (
-                <Image 
-                  src={activeImage} 
-                  alt={product.name} 
-                  fill 
-                  className="object-cover transition-transform duration-700 group-hover:scale-105" 
-                  priority
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-cocoa/30">No Image Available</div>
-              )}
+          <div className="space-y-5">
+            <div
+              className="group relative aspect-[4/5] w-full overflow-hidden rounded-[2.5rem] border border-cocoa/10 bg-[#e9dfc2] shadow-[0_30px_80px_rgba(62,40,27,0.12)]"
+              style={{ backgroundColor: product.accentColor + "15" }}
+            >
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.45),transparent_65%)]" />
+              <Image
+                src={activeImage}
+                alt={`${product.name} — ${product.subtitle}`}
+                fill
+                className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute left-5 top-5 rounded-full border border-gold/45 bg-cocoa/55 px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-gold backdrop-blur-md">
+                {product.badge}
+              </div>
             </div>
-            
-            {/* Thumbnails */}
-            {images.length > 1 && (
-              <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-                {images.map((img: any, idx: number) => (
-                  <button 
-                    key={img.id || idx}
-                    onClick={() => setActiveImage(img.url)}
-                    className={`relative w-24 h-24 shrink-0 rounded-2xl overflow-hidden border-2 transition-all ${
-                      activeImage === img.url ? 'border-terracotta shadow-md' : 'border-transparent opacity-70 hover:opacity-100 hover:border-cocoa/20'
+
+            {product.images.length > 1 && (
+              <div className="flex gap-4">
+                {product.images.map((img) => (
+                  <button
+                    key={img}
+                    onClick={() => setActiveImage(img)}
+                    className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border-2 transition ${
+                      activeImage === img
+                        ? "border-terracotta shadow-md"
+                        : "border-transparent opacity-70 hover:opacity-100 hover:border-cocoa/20"
                     }`}
                   >
-                    <Image src={img.url} alt={`${product.name} thumbnail ${idx + 1}`} fill className="object-cover" />
+                    <Image src={img} alt="Product thumbnail" fill className="object-cover" />
                   </button>
                 ))}
               </div>
             )}
           </div>
-          
+
           {/* Product Info */}
           <div className="flex flex-col justify-center">
-            <p className="text-[0.65rem] font-bold uppercase tracking-[0.28em] text-terracotta mb-4">
-              {product.category?.name || 'Live Daily Naturals'}
+            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-terracotta">
+              {product.subtitle}
             </p>
-            
-            <h1 className="font-cormorant text-5xl md:text-6xl italic leading-tight mb-2">
+            <h1 className="mt-2 font-cormorant text-5xl italic leading-tight md:text-6xl">
               {product.name}
             </h1>
-            
-            <p className="text-xl font-medium text-cocoa/80 mb-6">GH₵ {product.price.toFixed(2)}</p>
-            
-            <div className="prose prose-sm prose-cocoa max-w-none text-cocoa/80 mb-8">
-              <p className="leading-relaxed">{product.description}</p>
-            </div>
-            
-            <div className="space-y-6 mb-10">
-              <div className="flex items-center gap-6">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-cocoa/60">Quantity</span>
-                <div className="flex items-center border border-cocoa/20 rounded-full px-4 py-2">
-                  <button 
-                    onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                    className="p-1 text-cocoa/60 hover:text-terracotta transition-colors"
-                  >
-                    <Minus className="w-4 h-4" />
-                  </button>
-                  <span className="w-10 text-center text-sm font-bold">{quantity}</span>
-                  <button 
-                    onClick={() => setQuantity(q => q + 1)}
-                    className="p-1 text-cocoa/60 hover:text-terracotta transition-colors"
-                  >
-                    <Plus className="w-4 h-4" />
-                  </button>
-                </div>
+            <p className="mt-5 text-2xl font-medium text-cocoa/80">GH₵ {product.price.toFixed(2)}</p>
+            <p className="mt-6 text-sm leading-7 text-cocoa/75">{product.description}</p>
+
+            <ul className="mt-6 space-y-2">
+              {product.details.map((d) => (
+                <li key={d} className="flex items-start gap-3 text-sm text-cocoa/70">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-gold" />
+                  {d}
+                </li>
+              ))}
+            </ul>
+
+            {/* Quantity */}
+            <div className="mt-8 flex items-center gap-6">
+              <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-cocoa/60">Quantity</span>
+              <div className="flex items-center gap-4 rounded-full border border-cocoa/20 px-4 py-2">
+                <button
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  className="p-1 text-cocoa/60 transition hover:text-terracotta"
+                  aria-label="Decrease quantity"
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="w-6 text-center text-sm font-semibold">{quantity}</span>
+                <button
+                  onClick={() => setQuantity((q) => q + 1)}
+                  className="p-1 text-cocoa/60 transition hover:text-terracotta"
+                  aria-label="Increase quantity"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
               </div>
             </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <button 
+
+            {/* Actions */}
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <button
                 onClick={handleAddToCart}
-                className="flex-1 flex items-center justify-center gap-2 rounded-full border border-cocoa px-8 py-4 text-xs font-bold uppercase tracking-widest text-cocoa transition hover:bg-cocoa/5"
+                className="flex flex-1 items-center justify-center gap-2 rounded-full border border-cocoa bg-transparent px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-cocoa transition hover:bg-cocoa/5"
               >
-                <ShoppingBag className="w-4 h-4" />
+                <ShoppingBag className="h-4 w-4" />
                 Add to Cart
               </button>
-              <button 
+              <button
                 onClick={handleBuyNow}
-                className="flex-1 rounded-full bg-cocoa px-8 py-4 text-xs font-bold uppercase tracking-widest text-ivory shadow-lg hover:bg-terracotta hover:shadow-xl hover:-translate-y-0.5 transition-all"
+                className="flex flex-1 items-center justify-center rounded-full bg-cocoa px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-ivory shadow-lg transition hover:bg-terracotta hover:shadow-xl"
               >
                 Buy Now
               </button>
             </div>
-            
-            <div className="pt-8 border-t border-cocoa/10 space-y-4">
-              <div className="flex justify-between text-xs">
-                <span className="font-bold uppercase tracking-widest text-cocoa/60">SKU</span>
-                <span className="font-medium text-cocoa">{product.sku}</span>
+
+            {/* Meta */}
+            <div className="mt-10 space-y-3 border-t border-cocoa/10 pt-8 text-xs">
+              <div className="flex justify-between">
+                <span className="font-semibold uppercase tracking-[0.16em] text-cocoa/55">SKU</span>
+                <span className="font-medium">{product.sku}</span>
               </div>
-              <div className="flex justify-between text-xs">
-                <span className="font-bold uppercase tracking-widest text-cocoa/60">Availability</span>
-                <span className="font-medium text-cocoa">
-                  {product.inventory?.quantity > 0 ? 'In Stock' : 'Out of Stock'}
-                </span>
+              <div className="flex justify-between">
+                <span className="font-semibold uppercase tracking-[0.16em] text-cocoa/55">Availability</span>
+                <span className="font-medium">{product.inStock ? "In Stock" : "Out of Stock"}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-semibold uppercase tracking-[0.16em] text-cocoa/55">Weight</span>
+                <span className="font-medium">100g</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
+
       <Footer />
     </main>
   );

@@ -21,9 +21,11 @@ export default function Footer() {
               <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold">Explore</h3>
               <ul className="space-y-3 text-ivory/75">
                 <li><Link href="/" className="transition hover:text-gold">Home</Link></li>
-                <li><Link href="/quiz" className="transition hover:text-gold">AI Skin Quiz</Link></li>
-                <li><Link href="/checkout" className="transition hover:text-gold">Checkout</Link></li>
+                <li><Link href="/products" className="transition hover:text-gold">Products</Link></li>
+                <li><Link href="/rituals" className="transition hover:text-gold">Rituals</Link></li>
+                <li><Link href="/heritage" className="transition hover:text-gold">Heritage</Link></li>
                 <li><Link href="/about" className="transition hover:text-gold">Our Story</Link></li>
+                <li><Link href="/checkout" className="transition hover:text-gold">Checkout</Link></li>
               </ul>
             </div>
             <div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Loader2, Search, CheckCircle2, ShieldCheck, Download, Eye, X, Star } from "lucide-react";
+import { Loader2, Search, CheckCircle2, ShieldCheck, Download, Eye, X, Star, MessageSquare } from "lucide-react";
 import { fetchApi } from "@/lib/api";
 import localCountries from "@/lib/countries.json";
 
@@ -12,24 +12,30 @@ const getCountryInfo = (isoName: string) => {
 };
 
 export default function AdminVerificationsPage() {
+  const [activeTab, setActiveTab] = useState<'verifications' | 'reviews'>('verifications');
   const [claims, setClaims] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedClaim, setSelectedClaim] = useState<any | null>(null);
   const [crediting, setCrediting] = useState(false);
 
   useEffect(() => {
-    const fetchClaims = async () => {
+    const fetchData = async () => {
       try {
-        const data = await fetchApi("/verify/admin/claims");
-        setClaims(data);
+        const [claimsData, reviewsData] = await Promise.all([
+          fetchApi("/verify/admin/claims"),
+          fetchApi("/verify/admin/reviews"),
+        ]);
+        setClaims(claimsData);
+        setReviews(reviewsData);
       } catch (err) {
-        console.error("Failed to load claims", err);
+        console.error("Failed to load data", err);
       } finally {
         setLoading(false);
       }
     };
-    fetchClaims();
+    fetchData();
   }, []);
 
   const filteredClaims = claims.filter(c => 
@@ -41,14 +47,34 @@ export default function AdminVerificationsPage() {
   const handleCreditAirtime = async () => {
     if (!selectedClaim) return;
     setCrediting(true);
-    // Simulate API call for manual crediting
-    setTimeout(() => {
-      setCrediting(false);
+    try {
+      await fetchApi('/verify/admin/credit', {
+        method: 'POST',
+        body: JSON.stringify({
+          productId: selectedClaim.productId,
+          phoneNumber: selectedClaim.phoneNumber,
+          countryCode: selectedClaim.countryCode,
+          reviewerName: selectedClaim.reviewerName,
+        }),
+      });
       alert("Airtime credited successfully!");
       setSelectedClaim(null);
-      // Ideally, we'd refresh claims here
-    }, 1500);
+      // Refresh claims list
+      const data = await fetchApi('/verify/admin/claims');
+      setClaims(data);
+    } catch (err: any) {
+      console.error('Failed to credit airtime', err);
+      alert(err.message || 'Failed to credit airtime. Please try again.');
+    } finally {
+      setCrediting(false);
+    }
   };
+
+  const filteredReviews = reviews.filter(r =>
+    r.user?.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    r.product?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    r.reviewerName?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -57,15 +83,40 @@ export default function AdminVerificationsPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-cormorant font-bold text-cocoa flex items-center gap-3">
-            <ShieldCheck className="w-8 h-8 text-green-600" /> Verifications & Claims
+            <ShieldCheck className="w-8 h-8 text-green-600" /> Verifications & Reviews
           </h1>
-          <p className="text-cocoa/60 mt-1">Manage all QR Code verifications and airtime rewards.</p>
+          <p className="text-cocoa/60 mt-1">Manage QR Code verifications, airtime rewards, and customer reviews.</p>
         </div>
         <button className="flex items-center gap-2 bg-ivory text-cocoa border border-cocoa/20 px-4 py-2 rounded-xl text-sm font-semibold uppercase tracking-widest hover:bg-cocoa/5 transition-colors">
           <Download className="w-4 h-4" /> Export CSV
         </button>
       </div>
 
+      {/* Tabs */}
+      <div className="flex gap-2 border-b border-cocoa/10">
+        <button
+          onClick={() => setActiveTab('verifications')}
+          className={`flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-widest border-b-2 transition-colors ${
+            activeTab === 'verifications'
+              ? 'border-terracotta text-terracotta'
+              : 'border-transparent text-cocoa/50 hover:text-cocoa'
+          }`}
+        >
+          <ShieldCheck className="w-4 h-4" /> QR Verifications ({claims.length})
+        </button>
+        <button
+          onClick={() => setActiveTab('reviews')}
+          className={`flex items-center gap-2 px-5 py-3 text-sm font-bold uppercase tracking-widest border-b-2 transition-colors ${
+            activeTab === 'reviews'
+              ? 'border-terracotta text-terracotta'
+              : 'border-transparent text-cocoa/50 hover:text-cocoa'
+          }`}
+        >
+          <MessageSquare className="w-4 h-4" /> All Reviews ({reviews.length})
+        </button>
+      </div>
+
+      {activeTab === 'verifications' && (<>
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-2xl border border-cocoa/5 shadow-sm">
@@ -179,6 +230,72 @@ export default function AdminVerificationsPage() {
       </div>
 
       {/* Detail Modal */}
+      </>) /* end verifications tab */}
+
+      {activeTab === 'reviews' && (
+        <div className="bg-white rounded-3xl border border-cocoa/5 shadow-sm overflow-hidden">
+          <div className="p-6 border-b border-cocoa/5">
+            <div className="relative max-w-sm">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-cocoa/40" />
+              <input
+                type="text"
+                placeholder="Search by customer or product..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 bg-ivory/50 border border-cocoa/10 rounded-xl focus:ring-1 focus:ring-terracotta focus:border-terracotta outline-none transition-all text-sm"
+              />
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-cocoa/5 text-cocoa/70 text-xs uppercase tracking-widest">
+                  <th className="p-4 font-semibold whitespace-nowrap">Date</th>
+                  <th className="p-4 font-semibold whitespace-nowrap">Customer</th>
+                  <th className="p-4 font-semibold whitespace-nowrap">Product</th>
+                  <th className="p-4 font-semibold whitespace-nowrap">Rating</th>
+                  <th className="p-4 font-semibold">Review</th>
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr><td colSpan={5} className="p-12 text-center"><Loader2 className="w-8 h-8 animate-spin mx-auto text-terracotta" /></td></tr>
+                ) : filteredReviews.length === 0 ? (
+                  <tr><td colSpan={5} className="p-12 text-center text-cocoa/50">No reviews found.</td></tr>
+                ) : (
+                  filteredReviews.map((review) => (
+                    <tr key={review.id} className="border-b border-cocoa/5 hover:bg-cocoa/[0.02] transition-colors">
+                      <td className="p-4 text-sm whitespace-nowrap">
+                        {new Date(review.createdAt).toLocaleDateString()}<br />
+                        <span className="text-xs text-cocoa/50">{new Date(review.createdAt).toLocaleTimeString()}</span>
+                      </td>
+                      <td className="p-4 text-sm font-bold text-cocoa whitespace-nowrap">
+                        {review.reviewerName || `${review.user?.firstName || ''} ${review.user?.lastName || ''}`.trim() || 'Customer'}
+                        {review.user?.phone && <div className="text-xs font-normal font-mono text-cocoa/50">{review.user.phone}</div>}
+                      </td>
+                      <td className="p-4 text-sm font-medium text-cocoa/80 whitespace-nowrap">
+                        {review.product?.name || 'Unknown Product'}
+                      </td>
+                      <td className="p-4 whitespace-nowrap">
+                        <div className="flex items-center gap-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className={`w-3.5 h-3.5 ${i < (review.rating || 0) ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-200 text-gray-200'}`} />
+                          ))}
+                          <span className="ml-1 text-xs text-cocoa/60">{review.rating}/5</span>
+                        </div>
+                      </td>
+                      <td className="p-4 text-sm text-cocoa/70 max-w-xs">
+                        <p className="line-clamp-2 italic">{review.comment || <span className="text-cocoa/30 not-italic">No comment</span>}</p>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
       {selectedClaim && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-ivory rounded-3xl p-8 max-w-lg w-full shadow-2xl relative">

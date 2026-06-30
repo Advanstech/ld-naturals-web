@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ShoppingBag, Menu, User, Settings, LayoutDashboard, LogOut } from "lucide-react";
+import { ShoppingBag, Menu, X, User, Settings, LayoutDashboard, LogOut } from "lucide-react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { supabase } from "@/lib/supabase";
@@ -12,6 +12,7 @@ export default function Navbar() {
   const [session, setSession] = useState<any>(null);
   const [userRole, setUserRole] = useState<string>("CUSTOMER");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -141,11 +142,67 @@ export default function Navbar() {
             <span className="text-sm font-medium">{totalItems}</span>
           </Link>
 
-          <button className="hover:opacity-70 transition-opacity md:hidden">
+          <button 
+            className="hover:opacity-70 transition-opacity lg:hidden"
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
             <Menu className="w-6 h-6" />
           </button>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-cocoa text-ivory lg:hidden animate-in fade-in zoom-in-95 duration-200">
+          <div className="flex items-center justify-between p-6 border-b border-ivory/10">
+            <div className="relative h-12 w-12 rounded-full border border-gold/35 bg-ivory p-1.5">
+              <Image 
+                src="/logo.png" 
+                alt="Live Daily Logo" 
+                fill
+                sizes="48px"
+                className="object-contain p-1.5"
+              />
+            </div>
+            <button 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 hover:bg-ivory/10 rounded-full transition-colors"
+            >
+              <X className="w-8 h-8" />
+            </button>
+          </div>
+          
+          <div className="flex-1 overflow-y-auto py-8 px-6 flex flex-col gap-8 text-2xl font-cormorant">
+            <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">About Us</Link>
+            <Link href="/rituals" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Rituals</Link>
+            <Link href="/heritage" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Heritage</Link>
+            <Link href="/products" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">Shop Products</Link>
+            <Link href="/quiz" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors">AI Skin Quiz</Link>
+            
+            <div className="h-px bg-ivory/10 my-4"></div>
+            
+            {!session ? (
+              <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors flex items-center gap-3">
+                <User className="w-6 h-6" /> Sign In
+              </Link>
+            ) : (
+              <>
+                <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors flex items-center gap-3">
+                  <Settings className="w-6 h-6" /> Profile
+                </Link>
+                {(userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') && (
+                  <Link href="/admin" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-gold transition-colors flex items-center gap-3">
+                    <LayoutDashboard className="w-6 h-6" /> Admin Portal
+                  </Link>
+                )}
+                <button onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} className="hover:text-terracotta transition-colors flex items-center gap-3 text-left">
+                  <LogOut className="w-6 h-6" /> Sign Out
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
