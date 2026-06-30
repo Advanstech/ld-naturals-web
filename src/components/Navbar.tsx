@@ -38,10 +38,8 @@ export default function Navbar() {
 
   const fetchUserRole = async (userId: string) => {
     try {
-      // In a real app we might have a dedicated endpoint for "me" or fetch from DB.
-      // Assuming Supabase metadata or fetching from backend. 
-      // For now, if they are an admin they can access the admin dashboard.
-      const res = await fetch(`http://localhost:3001/api/v1/admin/customers/${userId}`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+      const res = await fetch(`${apiUrl}/api/v1/auth/me`, {
         headers: { Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}` }
       });
       if (res.ok) {
