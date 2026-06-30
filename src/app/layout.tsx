@@ -28,7 +28,7 @@ export default async function RootLayout({
 }>) {
   const nonce = (await headers()).get('x-nonce') ?? undefined;
   return (
-    <html lang="en" nonce={nonce} className={`${cormorant.variable} ${inter.variable} antialiased`}>
+    <html lang="en" nonce={nonce || undefined} suppressHydrationWarning className={`${cormorant.variable} ${inter.variable} antialiased`}>
       <body className="bg-ivory text-cocoa font-inter min-h-screen flex flex-col">
         <CartProvider>
           <SmoothScrolling>
