@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import { CartProvider } from "@/context/CartContext";
@@ -20,13 +21,14 @@ export const metadata: Metadata = {
   description: "World-class natural soap products. Nourish Daily with Nature's Touch.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
   return (
-    <html lang="en" className={`${cormorant.variable} ${inter.variable} antialiased`}>
+    <html lang="en" nonce={nonce} className={`${cormorant.variable} ${inter.variable} antialiased`}>
       <body className="bg-ivory text-cocoa font-inter min-h-screen flex flex-col">
         <CartProvider>
           <SmoothScrolling>
