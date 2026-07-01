@@ -14,7 +14,8 @@ export async function fetchApi(endpoint: string, options: RequestInit = {}) {
     headers['Authorization'] = `Bearer ${session.access_token}`;
   }
 
-  const url = `${API_BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+  const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = `${API_BASE_URL}/api/v1${normalizedEndpoint}`;
   
   const response = await fetch(url, {
     ...options,

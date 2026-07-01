@@ -6,6 +6,7 @@ import { ShoppingBag, Menu, X, User, Settings, LayoutDashboard, LogOut } from "l
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { supabase } from "@/lib/supabase";
+import { fetchApi } from "@/lib/api";
 
 export default function Navbar() {
   const { totalItems } = useCart();
@@ -18,7 +19,7 @@ export default function Navbar() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       if (session?.user?.id) {
-        fetchUserRole(session.user.id);
+        fetchUserRole();
       }
     });
 
@@ -27,7 +28,7 @@ export default function Navbar() {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       if (session?.user?.id) {
-        fetchUserRole(session.user.id);
+        fetchUserRole();
       } else {
         setUserRole("CUSTOMER");
       }
@@ -36,16 +37,10 @@ export default function Navbar() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const fetchUserRole = async (userId: string) => {
+  const fetchUserRole = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
-      const res = await fetch(`${apiUrl}/api/v1/auth/me`, {
-        headers: { Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}` }
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.role) setUserRole(data.role);
-      }
+      const data = await fetchApi('/auth/me');
+      if (data?.role) setUserRole(data.role);
     } catch (e) {
       console.error("Error fetching user role", e);
     }
