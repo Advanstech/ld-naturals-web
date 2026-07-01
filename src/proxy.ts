@@ -10,20 +10,34 @@ export function proxy(request: NextRequest) {
 
   const isDev = process.env.NODE_ENV !== 'production';
 
-  const csp = [
-    "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}'${isDev ? " 'unsafe-eval'" : ''}`,
-    `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
-    "font-src 'self' https://fonts.gstatic.com data:",
-    "img-src 'self' blob: data: https: http:",
-    "media-src 'self'",
-    `connect-src 'self' ${apiUrl} https://*.supabase.co wss://*.supabase.co https://api.advansistechnologies.com`,
-    "frame-src 'none'",
-    "object-src 'none'",
-    "base-uri 'self'",
-    "form-action 'self'",
-    "upgrade-insecure-requests",
-  ].join('; ');
+  const csp = isDev
+    ? [
+        "default-src 'self'",
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:3000 http://localhost:3001 http://127.0.0.1:3000 http://127.0.0.1:3001",
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com http://localhost:3000 http://localhost:3001 http://127.0.0.1:3000 http://127.0.0.1:3001",
+        "font-src 'self' https://fonts.gstatic.com data: http://localhost:3000 http://localhost:3001 http://127.0.0.1:3000 http://127.0.0.1:3001",
+        "img-src 'self' blob: data: https: http:",
+        "media-src 'self'",
+        `connect-src 'self' http://localhost:3000 http://localhost:3001 ws://localhost:3000 ws://localhost:3001 http://127.0.0.1:3000 http://127.0.0.1:3001 ws://127.0.0.1:3000 ws://127.0.0.1:3001 ${apiUrl} https://*.supabase.co wss://*.supabase.co https://api.advansistechnologies.com`,
+        "frame-src 'none'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+      ].join('; ')
+    : [
+        "default-src 'self'",
+        `script-src 'self' 'nonce-${nonce}'`,
+        `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
+        "font-src 'self' https://fonts.gstatic.com data:",
+        "img-src 'self' blob: data: https: http:",
+        "media-src 'self'",
+        `connect-src 'self' ${apiUrl} https://*.supabase.co wss://*.supabase.co https://api.advansistechnologies.com`,
+        "frame-src 'none'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "upgrade-insecure-requests",
+      ].join('; ');
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-nonce', nonce);
