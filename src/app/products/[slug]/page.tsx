@@ -68,6 +68,50 @@ const PRODUCTS: Record<string, {
     badge: "Pure Calm",
     accentColor: "#8b552f",
   },
+  "carrot-oil-black-soap": {
+    id: "carrot-oil",
+    slug: "carrot-oil-black-soap",
+    name: "Carrot Oil Black Soap",
+    subtitle: "Nourish Daily",
+    price: 130,
+    image: "/new-carrot-oil.jpg",
+    images: ["/new-carrot-oil.jpg"],
+    description:
+      "Rich with natural carrot oil to nourish your skin daily. Packed with antioxidants, this soap naturally exfoliates, moisturizes, and leaves your skin glowing with an unmistakable vitality.",
+    details: [
+      "Exfoliates gently",
+      "Deeply moisturizes",
+      "Glow-boosting antioxidant protection",
+      "Nourishes with vitamin A & C",
+      "100g artisan bar",
+    ],
+    sku: "LD-CLEAN-COBS-100",
+    inStock: true,
+    badge: "Nourish Daily",
+    accentColor: "#f6e4cc",
+  },
+  "customized-labelled-black-soap": {
+    id: "customized",
+    slug: "customized-labelled-black-soap",
+    name: "Sharon Carrot Oil Black Soap",
+    subtitle: "White Label Example",
+    price: 150,
+    image: "/sharon-carrot-oil.jpg",
+    images: ["/sharon-carrot-oil.jpg"],
+    description:
+      "An example of our personalized soap service! This is a premium Ghanaian cocoa butter black soap infused with carrot oil, complete with custom Sharon branding. Perfect for gifting, special events, or starting your own brand.",
+    details: [
+      "Customizable labels",
+      "Exfoliates gently",
+      "Deeply moisturizes",
+      "White label brandable",
+      "100g artisan bar",
+    ],
+    sku: "LD-CLEAN-CLBS-100",
+    inStock: true,
+    badge: "Customizable",
+    accentColor: "#f3c7b6",
+  },
 };
 
 const ALIASES: Record<string, string> = {
