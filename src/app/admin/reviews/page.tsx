@@ -15,28 +15,37 @@ export default function AdminVerificationsPage() {
   const [activeTab, setActiveTab] = useState<'verifications' | 'reviews'>('verifications');
   const [claims, setClaims] = useState<any[]>([]);
   const [reviews, setReviews] = useState<any[]>([]);
+  const [claimsTotal, setClaimsTotal] = useState(0);
+  const [reviewsTotal, setReviewsTotal] = useState(0);
+  const [claimsPage, setClaimsPage] = useState(1);
+  const [reviewsPage, setReviewsPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedClaim, setSelectedClaim] = useState<any | null>(null);
   const [crediting, setCrediting] = useState(false);
 
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const [claimsData, reviewsData] = await Promise.all([
+        fetchApi(`/verify/admin/claims?page=${claimsPage}&limit=${limit}`),
+        fetchApi(`/verify/admin/reviews?page=${reviewsPage}&limit=${limit}`),
+      ]);
+      setClaims(claimsData?.data || []);
+      setClaimsTotal(claimsData?.total || 0);
+      setReviews(reviewsData?.data || []);
+      setReviewsTotal(reviewsData?.total || 0);
+    } catch (err) {
+      console.error("Failed to load data", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [claimsData, reviewsData] = await Promise.all([
-          fetchApi("/verify/admin/claims"),
-          fetchApi("/verify/admin/reviews"),
-        ]);
-        setClaims(claimsData);
-        setReviews(reviewsData);
-      } catch (err) {
-        console.error("Failed to load data", err);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchData();
-  }, []);
+  }, [claimsPage, reviewsPage, limit]);
 
   const filteredClaims = claims.filter(c => 
     c.phoneNumber?.includes(searchTerm) || 
@@ -60,8 +69,9 @@ export default function AdminVerificationsPage() {
       alert("Airtime credited successfully!");
       setSelectedClaim(null);
       // Refresh claims list
-      const data = await fetchApi('/verify/admin/claims');
-      setClaims(data);
+      const data = await fetchApi(`/verify/admin/claims?page=${claimsPage}&limit=${limit}`);
+      setClaims(data?.data || []);
+      setClaimsTotal(data?.total || 0);
     } catch (err: any) {
       console.error('Failed to credit airtime', err);
       alert(err.message || 'Failed to credit airtime. Please try again.');
@@ -102,7 +112,7 @@ export default function AdminVerificationsPage() {
               : 'border-transparent text-cocoa/50 hover:text-cocoa'
           }`}
         >
-          <ShieldCheck className="w-4 h-4" /> QR Verifications ({claims.length})
+          <ShieldCheck className="w-4 h-4" /> QR Verifications ({claimsTotal})
         </button>
         <button
           onClick={() => setActiveTab('reviews')}
@@ -112,7 +122,7 @@ export default function AdminVerificationsPage() {
               : 'border-transparent text-cocoa/50 hover:text-cocoa'
           }`}
         >
-          <MessageSquare className="w-4 h-4" /> All Reviews ({reviews.length})
+          <MessageSquare className="w-4 h-4" /> All Reviews ({reviewsTotal})
         </button>
       </div>
 
@@ -121,7 +131,7 @@ export default function AdminVerificationsPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-2xl border border-cocoa/5 shadow-sm">
           <h3 className="text-xs font-semibold uppercase tracking-widest text-cocoa/50 mb-2">Total Verifications</h3>
-          <p className="text-3xl font-bold text-cocoa">{claims.length}</p>
+          <p className="text-3xl font-bold text-cocoa">{claimsTotal}</p>
         </div>
         <div className="bg-white p-6 rounded-2xl border border-cocoa/5 shadow-sm">
           <h3 className="text-xs font-semibold uppercase tracking-widest text-cocoa/50 mb-2">Rewards Claimed</h3>
@@ -227,6 +237,29 @@ export default function AdminVerificationsPage() {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination - Verifications */}
+        <div className="flex items-center justify-between border-t border-cocoa/5 px-6 py-4">
+          <div className="text-xs text-cocoa/60">
+            Page {claimsPage} of {Math.ceil(claimsTotal / limit) || 1}
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setClaimsPage(p => Math.max(1, p - 1))}
+              disabled={claimsPage <= 1}
+              className="px-3 py-1.5 rounded-lg border border-cocoa/20 text-xs font-semibold text-cocoa disabled:opacity-40 hover:bg-cocoa/5"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => setClaimsPage(p => p + 1)}
+              disabled={claimsPage * limit >= claimsTotal}
+              className="px-3 py-1.5 rounded-lg border border-cocoa/20 text-xs font-semibold text-cocoa disabled:opacity-40 hover:bg-cocoa/5"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Detail Modal */}
@@ -292,6 +325,29 @@ export default function AdminVerificationsPage() {
                 )}
               </tbody>
             </table>
+          </div>
+
+          {/* Pagination - Reviews */}
+          <div className="flex items-center justify-between border-t border-cocoa/5 px-6 py-4">
+            <div className="text-xs text-cocoa/60">
+              Page {reviewsPage} of {Math.ceil(reviewsTotal / limit) || 1}
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setReviewsPage(p => Math.max(1, p - 1))}
+                disabled={reviewsPage <= 1}
+                className="px-3 py-1.5 rounded-lg border border-cocoa/20 text-xs font-semibold text-cocoa disabled:opacity-40 hover:bg-cocoa/5"
+              >
+                Previous
+              </button>
+              <button
+                onClick={() => setReviewsPage(p => p + 1)}
+                disabled={reviewsPage * limit >= reviewsTotal}
+                className="px-3 py-1.5 rounded-lg border border-cocoa/20 text-xs font-semibold text-cocoa disabled:opacity-40 hover:bg-cocoa/5"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       )}
