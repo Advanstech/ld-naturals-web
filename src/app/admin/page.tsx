@@ -44,7 +44,7 @@ export default function AdminDashboard() {
       <div className="rounded-md bg-red-50 p-4">
         <p className="text-sm font-medium text-red-800">Error: {error}</p>
         <p className="text-xs text-red-600 mt-1">
-          (Did you add the database URL in the backend .env file?)
+          Could not connect to the API. Check that NEXT_PUBLIC_API_URL is set and the API server is running, and that the backend has a valid DATABASE_URL.
         </p>
       </div>
     );
