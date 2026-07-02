@@ -29,7 +29,7 @@ const PRODUCTS: Record<string, {
     slug: "cocoa-black-soap-scented",
     name: "Cocoa Butter Black Soap",
     subtitle: "Signature Scented",
-    price: 45,
+    price: 120,
     image: "/product-scented.jpeg",
     images: ["/product-scented.jpeg", "/product-unscented.jpeg"],
     description:
@@ -51,7 +51,7 @@ const PRODUCTS: Record<string, {
     slug: "cocoa-black-soap-unscented",
     name: "Cocoa Butter Black Soap",
     subtitle: "Fragrance-Free",
-    price: 45,
+    price: 120,
     image: "/product-unscented.jpeg",
     images: ["/product-unscented.jpeg", "/product-scented.jpeg"],
     description:
