@@ -93,8 +93,19 @@ export default function VerifyPage() {
       });
 
       setSuccess(true);
-      // Optional: Clear form data after success
-      // localStorage.clear();
+      // Clear form fields and localStorage after successful submission
+      setRating(0);
+      setComment('');
+      setReviewerName('');
+      setReviewerEmail('');
+      setPhoneNumber('');
+      setCountryCode('GH');
+      localStorage.removeItem('verify_name');
+      localStorage.removeItem('verify_email');
+      localStorage.removeItem('verify_phone');
+      localStorage.removeItem('verify_code');
+      localStorage.removeItem('verify_comment');
+      localStorage.removeItem('verify_rating');
     } catch (err: any) {
       setSubmitError(err.message || 'Failed to submit. Please try again.');
     } finally {
@@ -302,7 +313,7 @@ export default function VerifyPage() {
                   className="w-full sm:w-1/2 px-4 py-3 rounded-xl border border-cocoa/20 focus:border-terracotta focus:ring-1 focus:ring-terracotta outline-none transition-all bg-ivory/50"
                 />
               </div>
-              <p className="text-xs text-cocoa/50 mt-2">Enter your number without the leading zero.</p>
+              <p className="text-xs text-cocoa/50 mt-2">Enter your number with or without the leading zero (e.g. 0244123456 or 244123456).</p>
             </div>
 
             {submitError && (
