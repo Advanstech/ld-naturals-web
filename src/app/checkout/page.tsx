@@ -110,7 +110,7 @@ export default function CheckoutPage() {
           setCountryCode(data.country_code);
         }
       } catch (err) {
-        console.warn("Could not auto-detect location, falling back to GH", err);
+        // Silently fall back to GH to avoid console spam in dev
       } finally {
         setDetectingLocation(false);
       }

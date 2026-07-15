@@ -42,7 +42,7 @@ export default function Hero() {
   return (
     <section ref={containerRef} className="relative min-h-screen overflow-hidden bg-cocoa">
       <div ref={imageRef} className="absolute inset-0 h-[120%] -top-[10%] w-full">
-        <Image src="/hero-image.jpg" alt="Nature ritual background" fill sizes="100vw" className="object-cover" priority />
+        <Image src="/hero-image.jpg" alt="Nature ritual background" fill sizes="100vw" className="object-fill" priority />
       </div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_25%,rgba(216,200,58,0.22),transparent_28%),radial-gradient(circle_at_82%_70%,rgba(184,134,95,0.3),transparent_34%)]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-[#3e281b]/45 to-[#1a0d06]/90" />

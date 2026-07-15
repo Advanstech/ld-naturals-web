@@ -15,7 +15,7 @@ export async function fetchApi(endpoint: string, options: RequestInit = {}) {
   }
 
   const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  const url = `${API_BASE_URL}/api/v1${normalizedEndpoint}`;
+  const url = `${API_BASE_URL}${normalizedEndpoint}`;
   
   const response = await fetch(url, {
     ...options,

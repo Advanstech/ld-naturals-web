@@ -13,8 +13,8 @@ export function proxy(request: NextRequest) {
   const csp = isDev
     ? [
         "default-src 'self'",
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:3000 http://localhost:3001 http://127.0.0.1:3000 http://127.0.0.1:3001",
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com http://localhost:3000 http://localhost:3001 http://127.0.0.1:3000 http://127.0.0.1:3001",
+        `script-src 'self' 'nonce-${nonce}' 'unsafe-inline' 'unsafe-eval' http://localhost:3000 http://localhost:3001 http://127.0.0.1:3000 http://127.0.0.1:3001`,
+        `style-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://fonts.googleapis.com http://localhost:3000 http://localhost:3001 http://127.0.0.1:3000 http://127.0.0.1:3001`,
         "font-src 'self' https://fonts.gstatic.com data: http://localhost:3000 http://localhost:3001 http://127.0.0.1:3000 http://127.0.0.1:3001",
         "img-src 'self' blob: data: https: http:",
         "media-src 'self'",
